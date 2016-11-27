@@ -14,6 +14,8 @@ class articlesManager
 	// Accesseurs
 	
 	public function get($id)
+	// Cherche et renvoie l'article correspondat 
+	// a l'ID dans la base de donnees
 	{
 		// Préparation
 		$q = $this->_db->prepare('SELECT * FROM eld_articles WHERE id = :id');
@@ -28,6 +30,7 @@ class articlesManager
 	}
 	
 	public function existeId( $id)
+	// Verifie que l'article portant cet ID existe bel et bien
 	{
 		$id = (int) $id ;
 		// Préparation
@@ -44,6 +47,7 @@ class articlesManager
 	
 	
 	public function add(article $post)
+	// Enregistre l'article en parametre dans la base de donnees
 	{
 		// Préparation
 		$q = $this->_db->prepare('INSERT INTO eld_articles SET
@@ -57,7 +61,9 @@ class articlesManager
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		$q->closeCursor() ;
 	}
+	
 	public function delete(article $post)
+	// Effface l'article passe en parametres de la base de donnees
 	{
 		// Préparation
 		$q = $this->_db->prepare('DELETE FROM eld_articles WHERE id = :id');
@@ -68,6 +74,7 @@ class articlesManager
 		$q->closeCursor() ;
 	}
 	public function update(article $post)
+	// Met a jours l'article dans la base de donnees d'apres celui passe en parametre.
 	{
 		// Préparation
 		$q = $this->_db->prepare('UPDATE eld_articles SET
@@ -84,6 +91,8 @@ class articlesManager
 	}
 	
 	public function getNewest($nombre = 3)
+	// Renvoie les articles les plus recents de la base de donees
+	// (par defaut 3)
 	{
 		$nombre = (int) $nombre ;
 		// Préparation
@@ -103,6 +112,7 @@ class articlesManager
 	}
 	
 	public function getList()
+	// renvoie tout les articles de la base de donnees
 	{
 		// Préparation
 		$q = $this->_db->query('SELECT * FROM eld_articles ORDER BY date DESC, id DESC') or die( print_r( $q->errorInfo() ) ) ;

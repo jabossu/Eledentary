@@ -1,31 +1,41 @@
 <?php
 
+/**
+*	Classe pour generer des formulaires HTML facilemnt
+**/
+
 class form // ( $cible, $style, $titre='informations' )
 {
 	//	internal variables
 	private $_output ;
-    private $_styleform ;
-    private $_stylelabel ;
-    private $_styleinput ;
+	private $_styleform ;
+	private $_stylelabel ;
+	private $_styleinput ;
 
 	// ===================================================
 	// Accesseurs
 	// ===================================================
 	public function debug()
+	// Renvoie le code HTML genere plutot que de l'afficher.
+	// Remplace la fonction output
 	{
 		$this->append("</form></div></div>\n") ;
 		echo '<pre>' . htmlspecialchars($this->_output) . '</pre>' ;
 	}
+	
 	public function output()
+	// Conclut la generation du code et l'affiche.
 	{
 		$this->append("</form></div></div>\n") ;
 		echo $this->_output ;
 	}
+	
 	public function s_form()		{ return $this->_styleform ; }	
 	public function s_label()		{ return $this->_stylelabel ; }	
 	public function s_input()		{ return $this->_styleinput ; }	
 	
 	public function cut($slot)
+	// What the hell is that sh** ?
 	{
 		if ( preg_match('#col-(sm|md|xs)-[0-9]{2}#', $this->_styleinput) )
 		{
@@ -42,10 +52,11 @@ class form // ( $cible, $style, $titre='informations' )
 	// Setters
 	// ===================================================
 	
-    public function append( $string, $newline=true, $tab=0 )
-    // add string to _output
+	public function append( $string, $newline=true, $tab=0 )
+	// Ajoutte le code passe en parametre au code source du tableau
 	{
 		$this->_output .= ($newline) ? "\n" : '' ;
+		# saute une ligne dans le code source de la page avant l'ajout
 		
 		$n = 0 ;	while ($n < (int) $tab)
 		{	$this->_output .= "\t" ; $n += 1 ;	}
@@ -54,14 +65,18 @@ class form // ( $cible, $style, $titre='informations' )
 	}
     
 	public function add($string)
-	// create a new input
+	/**
+	*	Ajoute une ligne au formulaire
+	*	Fonction faite pour etre utilisee par les autres fonctions pour generer le code
+	**/
 	{
-		$this->append('<div class="form-group">', true, 1);
-		$this->append($string, true);
-		$this->append('</div>', true, 1);
+		$this->append('<div class="form-group">', $newline=true, $tab=1);
+		$this->append($string, $newline=true, $tab=0);
+		$this->append('</div>', $newline=true, $tab=1);
 	}
 	
 	public function label($id, $text='Label')
+	//	Genere le label d'un input
 	{
 		$r  = "\t\t" ;
 		$r .= '<label for="'. $id .'" class="'. $this->s_label() .'">' ;
@@ -71,6 +86,7 @@ class form // ( $cible, $style, $titre='informations' )
 	}
 	
 	public function legend($text)
+	//	Genere la legende d'une section du formulaire
 	{
 		$this->append('<legend>' . $text . '</legend>', true, 2);
 	}
