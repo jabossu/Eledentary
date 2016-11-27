@@ -1,0 +1,11 @@
+<?php
+
+if ( isset( $_SESSION['profile'] ) )
+{
+	include 'pages/reflecteurs/m_patients.php' ;
+	#include 'pages/afficheurs/v_patients.php' ;
+}
+else
+{
+	include $WEBPAGE['403'] ;
+}

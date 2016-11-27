@@ -1,0 +1,23 @@
+/*.chatbox {
+	margin : 15px;
+	padding: 0px ;
+	background-color : #FAFAFA ;
+	font-size : 14px ;
+}
+.chatbox .text {
+	margin : 0px;
+	padding: 0px ;
+}
+
+h5	{
+	color : grey;
+	text-align : center;
+	width: 90%;
+	border-bottom : 1px solid #B6ACAC ;
+	line-height : 0.1em;
+	margin : 10px 5% 10px 5% ;
+}
+h5 span {	
+	background : #fafafa ;
+	padding : 0 20px 0 20px ; ;
+}

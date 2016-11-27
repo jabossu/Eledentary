@@ -1,0 +1,210 @@
+html, body {
+	height:100%;
+}
+.page-content-wrapper	{
+	padding-top: 60px ;
+	word-wrap: break-word;
+}
+
+
+.loginpage	{
+	background-image:url(/ressources/images/background-login.jpg);
+	background-position: center center ;
+	background-repeat: no-repeat;
+	background-color:#729fcf;
+	height:100%;
+	position:relative;
+}
+.loginpage h1	{
+	float: left ;
+	padding: 10px 0px 0px 30px ;
+	color: rgba(255,255,255, 0.3) ;
+	font-size: 2em;
+	text-decoration: underline;
+	font-style : italic;
+	transition: 0.3s;
+}
+.loginpage h1:hover	{
+	color: rgba(255,255,255, 0.7) ;
+	font-size : 2.4em;
+}
+.loginpage h2	{
+	padding: 10px 30px 0px 0px ;
+	float: right ;
+	cursor: default;
+}
+.loginpage h2 img	{
+	width: 40px ;
+	height: 40px;
+	border-radius: 50%;
+	border: solid #2e3436 2px;
+	box-shadow : 0px 0px 3px #2e3436 ;
+	opacity: 0.5;
+	transition: 0.2s;
+}
+.loginpage h2 img:hover	{
+	opacity:1;
+	cursor: default;
+}
+.loginpage h2 img.current_language	{
+	border: solid #1abc9c 2px;
+	box-shadow : 0px 0px 3px #1abc9c ;
+}
+.loginpage form	{
+	text-align: center;
+	padding:45px 0px 45px 0px;
+	border-radius: 15px;
+	background-color: rgba(8,8,8, 0.2) ;
+	box-shadow: inset 0px 0px 2px black ;
+}
+.logintitle	{
+	margin: 20px;
+}
+.loginbox	{
+	height: 200px;
+	width: 100%;
+}
+.loginbox .loginline	{
+	padding-top: 10px;
+}
+.loginbox input	{
+	width: 80% ;
+	padding: 15px;
+	outline: none;
+	border: 1px solid #DDDDDD;
+	transition: all 0.30s ease-in-out;
+}
+.loginbox input:focus	{
+	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	border: 1px solid rgba(81, 203, 238, 1);
+}
+.loginbox input.topline	{
+	border-bottom:none;
+	border-top-left-radius: 10px;;
+	border-top-right-radius: 10px;;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+.loginbox input.bottomline	{
+	border-top: solid #babdb6 0.2px;;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-left-radius: 10px;;
+	border-bottom-right-radius: 10px;;
+}
+
+.loginbox .loginlinks , .loginbox input.sumbit	{
+	background-color: transparent ;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+.loginbox  a, .loginbox input.sumbit {
+	display: inline-block;
+	width: 200px;
+	padding: 6px;
+	margin: 5px;
+	margin-top:30px;
+	
+	color : #eeeeec;
+	border: solid #eeeeec 1px;
+	border-radius:5px;
+
+	text-align: center;
+	outline: none;
+	text-decoration: none;
+	font-size:0.9em;
+	transition: 0.2s;
+}
+.loginbox a:hover, .loginbox input.sumbit:hover	{
+	background-color: #fff;
+	color: #000;
+}
+.logintitle img	{
+	height:150px ;
+	width: 150px ;
+	border: solid grey 1px;
+	border-radius:50%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	top: 0%;
+	transition: 0.5s;
+}
+.logintitle img:hover	{
+	box-shadow: 0 0 10px white ;
+}
+
+
+#footer, #banniere,	{
+	background-color : white ;
+}
+
+#corps	{
+	background-color : transparent ;
+	margin : 10px ;
+	margin-top: -10px ;
+	border-radius : 10px ;
+		
+}
+#logo-corner	{
+	height: 120px;
+	width: 120px;
+	float: right ;
+	z-align: 5;
+	margin-top : -30px;
+	
+	vertical-align: midle ;
+	
+	border : 1px solid grey;
+	box-shadow: 0px 0px 2px 0px ;
+	max-height: 165px;
+	border-radius: 60px;
+	
+}
+
+.userbar	{
+	background-color : white ;
+	box-shadow: 0px 0px 5px black;
+	width: 100%;
+	margin-left: 0px ;
+}
+.navbar	{
+	width : 100% ;
+}
+
+#full		{
+	border-left : solid #888a85 1px ;
+	/*box-shadow: inset 5px 0px 5px grey;
+	/*background-image : url('/ressources/images/back.jpg') ; 
+	background-position : center top ;
+	background-attachment : fixed ;
+	background-repeat : repeat ;*/
+	background-color: white ;
+	
+	padding : 40px;
+	min-height: 100vh;
+}
+
+#footer	{
+	text-align: center;
+	padding: 5px;
+	margin-top : 10px ;
+	margin-bottom : 20px ;
+}
+
+#banniere	{
+	margin : -15px ;
+	margin-bottom : 20px ;
+	padding-top: 20px ;
+	padding-bottom: 10px ;
+	padding-left : 5% ;
+	padding-right : 5% ;
+	border-radius: 0px;
+}
+
+#profile .badge, #profile .glyphicon	{
+	float: left;
+	margin-right : -5px ;
+	font-weight : bold ;
+}

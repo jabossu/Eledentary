@@ -1,0 +1,18 @@
+
+
+.nav > li.nav-header > a {
+    cursor: default;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;\
+    color : inherit ;
+}
+
+.navbar-header	{
+	margin-top:5px;
+}
+.navbar-button	{
+	margin-top:10px;
+	margin-right: 5px ;
+}
+

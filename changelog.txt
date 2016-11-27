@@ -1,0 +1,10 @@
+==============================================
+		* 6 April 2016
+==============================================
+
+Bugfixes :
+	- config page doesn't reset each time loaded anymore
+Improvements :
+	- few graphical improvements on login page
+Translation :
+	update of the english translation
