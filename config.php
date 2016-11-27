@@ -3,10 +3,10 @@
 /*
 *	DATABASE CONFIG
 */
-	$DB_HOST = 'localhost' ;
-	$DB_NAME = 'eoolh' ;
-	$DB_USER = 'eoolh' ;
-	$DB_PASSWORD = '1rtrta1rtft' ;
+	$DB_HOST = '' ;
+	$DB_NAME = '' ;
+	$DB_USER = '' ;
+	$DB_PASSWORD = '' ;
 	
 /*
 *	Website Config
