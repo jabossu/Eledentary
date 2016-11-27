@@ -1,5 +1,11 @@
 <?php
 
+/**
+*	Classe contenant la configuration du site
+*
+*	
+**/
+
 class siteconfig
 {
 	//	internal variables

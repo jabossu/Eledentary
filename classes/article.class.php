@@ -13,14 +13,16 @@ class article
 
 	// Accesseurs
 	
-	public function id() 		{ return $this->_id ; }
+	public function id() 		{ return $this->_id ; } // Renvoie l'ID de l'article
 	public function date()
+	// Renvoie la date de l'article sous forme JOUR MOIS ANNEE
 	{
 		//$m, $d, $y = explode( '-', $this->date() ) ;
 		//$date = strtotime( $this->date() ) ;
 		return  date('d M Y', strtotime( $this->_date ) )  ;
 	}
 	public function titre($l='fr_FR')
+	//Renvoie le titre en anglais de l'article 
 	{
 		if ( $l == 'en_EN' )
 		{	return $this->_en_titre ;	}
@@ -28,7 +30,8 @@ class article
 		{	return $this->_fr_titre ;		}
 	
 	}
-		public function contenu($l='fr_FR')
+	public function contenu($l='fr_FR')
+	//Renvoie le titre en francais de l'article
 	{
 		if ( $l == 'en_EN' )
 		{	return $this->_en_contenu ;	}
@@ -39,6 +42,7 @@ class article
 	
 	
 	// Setters
+	// Remplit les differents atttributs
 	
 	public function setId($id) 		{ $this->_id = (int) $id ; }
 	public function setDate($date) 		{ $this->_date = $date ; }

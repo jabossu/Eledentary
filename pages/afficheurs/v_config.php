@@ -3,7 +3,6 @@
 classe('o', 'page-header') ;
 display('page_config', 'h1' ) ;
 classe('c') ;
-
 $f = new form('horizontal') ;
 
 $f->input('websiteTitle',	translate('websiteTitle'), 	null, $siteconfig->websiteTitle() ) ;
