@@ -3,10 +3,10 @@
 /*
 *	DATABASE CONFIG
 */
-	$DB_HOST = '' ;
-	$DB_NAME = '' ;
-	$DB_USER = '' ;
-	$DB_PASSWORD = '' ;
+	$DB_HOST = 'localhost' ;
+	$DB_NAME = 'eledentary' ;
+	$DB_USER = 'root' ;
+	$DB_PASSWORD = 'Md0@btbs' ;
 	
 /*
 *	Website Config
