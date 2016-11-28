@@ -5,7 +5,7 @@ include("config.php") ; // contient les parametres de base du site, comme ceux d
 include("init.php") ;	// contient les fonctions à appeller avant tout les reste, notamment la $bbd et les sessions.
 
 // Ajoute tout le contenu des balises <head>
-include("pages/parts/header.php") ;require("pages/parts/antiheader.php") ;
+include("pages/parts/header.php") ;
 // Le body, avec un container fixe de bootstrap
 echo '<body class="container-fluid" >';
 
