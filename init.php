@@ -10,7 +10,6 @@ $bdd = new PDO(
 	"$DB_USER",
 	"$DB_PASSWORD"
 );
-
 $GLOBALS['bdd'] = $bdd ;
 
 
