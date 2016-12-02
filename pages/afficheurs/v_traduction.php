@@ -3,6 +3,9 @@ classe('o', 'page-header') ;
 display('page_traduction', 'h1' ) ;
 classe('c') ;
 
+
+print_r($_POST);
+
 ?>
 
 <form method='post' action='/?page=traduction'>
@@ -20,7 +23,7 @@ classe('c') ;
 </tr>
 
 <?php 
-
+echo '<input class="	form-control" type="text" name='.$keyword.' value="' . $values["cur"] .'">' ;
 
 foreach( $file as $keyword => $values)
 {
