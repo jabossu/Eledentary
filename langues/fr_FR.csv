@@ -1,4 +1,4 @@
-hello_message;
+hello_message;"Bonjour %NOM PRENOM%"
 menu_title;Navigation
 administration;Administration
 patient_managing;"Données Patients"
@@ -7,7 +7,7 @@ nb_inscrits;"Étudiants inscrits :"
 back_to_top;"Retourner en haut"
 go_logs;"Accéder aux logs"
 about;"À propos..."
-divers;
+divers;Divers
 profile_title;"Bonjour %NAME%"
 new_users;"Nouveaux utilisateurs"
 no_new_user;"Aucun nouvel utilisateur"
@@ -91,17 +91,17 @@ details;Detalii
 select_patho;"Filtrer par pathologie :, "
 filtrer;Filtrer
 create_patient;"Ajoutter un patient"
-page_profile_patients;"Profilul de pacienți"
-info_patient;"Informaţii generale"
-info_pathologie;"Informații despre boala"
+page_profile_patients;"Profilul de pacien»õi"
+info_patient;"InformaŇ£ii generale"
+info_pathologie;"Informa»õii despre boala"
 cnp;C.N.P
 dent;"Dent atteinte"
 info_contact;"Mijloace de contact"
 update_patient_ok;"Modifications enregistrées"
-register_patient_ok;"pacient înregistrat"
+register_patient_ok;"pacient inregistrat"
 bad_form_patient;"Formulaire incorrecte : veuillez réessayer"
-bad_infos_patient;"Completați toate câmpurile"
-register;înregistra
+bad_infos_patient;"Completati toate campurile"
+register;inregistra
 page_eleves;"Élèves inscrits"
 page_eleves_msg;"Cliquez sur le nom d'un élève pour accéder aux détails de son profile."
 page_liste_patho;"Liste des pathologies"
@@ -116,14 +116,14 @@ patho_edited;"Modifications enregistrées"
 patho_invalid;"Erreur : Veuillez bien renseigner les champs suivants"
 patho_deleted;"Pathologie supprimée avec succès"
 patho_suppr;"Supprimer la pathologie"
-page_listepatho;
-nom_patho;
-patho_details;
-patho_nom;
-free_patient_ok;
-reserve_patient_ok;
-delete_patient_ok;
-patient_hasmedic;
+page_listepatho;"Liste des pathologies"
+nom_patho;"Nom de la pathologie"
+patho_details;Détails
+patho_nom;nom
+free_patient_ok;"Le patient n'est plus réservé"
+reserve_patient_ok;"Le patient est réservé"
+delete_patient_ok;"Le patient a bien été supprimé"
+patient_hasmedic;"Ce patient a un déja soignant"
 page_news;"Articles & News"
 write_post;"Rédaction :"
 fr_titre;"Titre (fr)"
@@ -159,9 +159,9 @@ banni;Banni
 approuve;Confirmé
 nouveau;"En attente"
 all_status;Tous
-action_free;"Deblocarea pacientului"
-my_patient;"Pacientii mei"
-action_reserve;"Rezervați direct pacientului"
+action_free;"Libérer le patient"
+my_patient;"Mes patients"
+action_reserve;"Réserver le patient"
 page_about_us;"Admins, Équipe & contacts"
 howto_bbcode;"Comment utiliser le BBCode ?"
 page_howto_bbcode;"Le BBcode"
@@ -169,12 +169,13 @@ site_name;"Gestionnaire de patients CMC Dentaire"
 site_title;"Site d'accès à la base de données de patients de la CMC Dentaire"
 copyryght;"CMC 2015, tout droits réservés"
 contributors;"Contributeurs : %NOMS%"
-page_config;
-websiteTitle;
-websiteMoto;
-websiteFooter;
-websiteLanguage;
-allowRegister;
-bypassApproval;
-allowAnamneses;
-patientLimit;
+page_config;Configuration
+websiteTitle;"Nom du site"
+websiteMoto;"Sdevise du site"
+websiteFooter;"Pied de page"
+websiteLanguage;"Langue par défaut"
+allowRegister;"Autoriser les inscriptions"
+bypassApproval;"Désactiver le contrôle d’accès"
+allowAnamneses;"Aciver les anamnèses"
+patientLimit;"Limite de patients"
+page_translation;Traduction

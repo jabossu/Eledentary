@@ -1,7 +1,5 @@
 <?php
 
-show($traduction);
-
 if ($successDeco == true)
 {	alerte('loged_out', success);	}
 
