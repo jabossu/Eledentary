@@ -1,3 +1,4 @@
+<div class='loginbody'>
 <?php
 $l = '' ;
 foreach( $listelangues as $nom => $code )
@@ -16,7 +17,7 @@ foreach( $listelangues as $nom => $code )
 
 ?>
 
-<div class='row'>
+<div class="row">
 	<div class='col-md-12'>
 		<?php echo '<h2>'.$l.'</h2>' ;?>
 	</div>
@@ -49,4 +50,5 @@ echo '<div class="loginbox">';
 echo '</div>';
 classe('c');
 ?>
+</div>
 </div>
