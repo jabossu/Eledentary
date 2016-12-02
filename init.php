@@ -64,4 +64,8 @@ if ( !isset( $_SESSION['langue'] ) )
 {	$_SESSION['langue'] = $siteconfig->websiteLanguage() ;	}
 
 // On utilise cette langue
-require("langues/" . $_SESSION['langue'] . ".php" );
+$traduction = loadTraduction('fr_FR');
+
+
+
+

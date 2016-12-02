@@ -40,7 +40,7 @@ $link = function($url, $texte, $glyph=null)
 		$link('pathologie_add', 'page_add_pathologies', 'plus-sign');
 		$link('news', 'page_news', 'text-background');
 		$link('config', 'page_config', 'cog');
-		$link('traduction', 'translation', 'transfer');
+		$link('traduction', 'page_translation', 'transfer');
 	}
 	
 	//echo "<li class='nav-header'><a class='nav-menu'>" . translate('divers') . "</a></li>" ;

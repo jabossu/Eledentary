@@ -3,9 +3,6 @@ classe('o', 'page-header') ;
 display('page_traduction', 'h1' ) ;
 classe('c') ;
 
-
-print_r($_POST);
-
 ?>
 
 <form method='post' action='/?page=traduction'>
@@ -23,9 +20,8 @@ print_r($_POST);
 </tr>
 
 <?php 
-echo '<input class="	form-control" type="text" name='.$keyword.' value="' . $values["cur"] .'">' ;
 
-foreach( $file as $keyword => $values)
+foreach( $langueRef as $keyword => $values)
 {
 	echo "<tr>";
 		echo "<td><b>";
@@ -33,11 +29,11 @@ foreach( $file as $keyword => $values)
 		echo "</td><b>";
 		
 		echo "<td>";
-			echo htmlspecialchars($values['ref']) ;
+			echo htmlspecialchars($values) ;
 		echo "</td>";
 		
 		echo "<td>";
-			echo '<input class="	form-control" type="text" name='.$keyword.' value="' . $values["cur"] .'">' ;
+			echo '<input class="	form-control" type="text" name='.$keyword.' value="' . $langueCur[$keyword] .'">' ;
 		echo "</td>";
 	echo "</tr>";
 	
