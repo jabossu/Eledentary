@@ -27,7 +27,10 @@ class siteconfigManager
 
 		foreach ( $parameters as $method )
 		{
-			if ( method_exists($old, $method) and $method != 'hydrate' and $method != '__construct' )
+			if ( method_exists($old, $method)
+				and $method != 'hydrate'
+				and $method != '__construct'
+				and ! preg_match( "#^set_*#", $method) )
 			{
 				if ( $new->$method() === null )
 				// SI le parametre n'existe pas dans la nouvelle config
@@ -48,7 +51,8 @@ class siteconfigManager
 	
 	function get()
 	{
-		$q = $this->_db->query("SELECT * FROM eld_siteconfig WHERE id = 1") or print_r($this->_db->errorInfo());
+		$q = $this->_db->query("SELECT * FROM eld_siteconfig WHERE id = 1") 
+			or print_r($this->_db->errorInfo());
 		$d = $q->fetchALL(PDO::FETCH_ASSOC) ;
 		
 		return new siteconfig( $d[0] ) ;

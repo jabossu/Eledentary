@@ -27,9 +27,9 @@ class siteconfig
 	public function websiteMoto() 		{ return $this->_websiteMoto ; }
 	public function websiteFooter() 	{ return $this->_websiteFooter ; }
 	public function websiteLanguage() 	{ return $this->_websiteLanguage ; }
-	public function allowRegister() 	{ return ( $this->_allowRegister == 'on' ) ? 'on' : 'off' ; }
-	public function bypassApproval() 	{ return ( $this->_bypassApproval == 'on' ) ? 'on' : 'off' ; }
-	public function allowAnamneses() 	{ return ( $this->_allowAnamneses == 'on' ) ? 'on' : 'off' ; }
+	public function allowRegister() 	{ return $this->_allowRegister ; }
+	public function bypassApproval() 	{ return $this->_bypassApproval ; }
+	public function allowAnamneses() 	{ return $this->_allowAnamneses ; }
 	public function patientLimit() 		{ return $this->_patientLimit ; }
 
 	
@@ -52,15 +52,15 @@ class siteconfig
 	}
 	public function setAllowRegister($v) 
 	{
-		$this->_allowRegister = ( $v == 'on' ) ? 'on' : 'off'  ;
+		$this->_allowRegister = ( $v == 'on' or $v == 'off' ) ? $v : null  ;
 	}
 	public function setBypassApproval($v) 
 	{
-		$this->_bypassApproval = ( $v == 'on' ) ? 'on' : 'off'  ;
+		$this->_bypassApproval = ( $v == 'on' or $v == 'off' ) ? $v : null  ;
 }
 	public function setAllowAnamneses($v) 
 	{
-		$this->_allowAnamneses = ( $v == 'on' ) ? 'on'  : 'off'  ;
+		$this->_allowAnamneses = ( $v == 'on' or $v == 'off' ) ? $v : null  ;
 	}
 	public function setPatientLimit($v) 
 	{

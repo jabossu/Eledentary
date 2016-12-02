@@ -10,6 +10,7 @@ function composerMail($src, $name, $forname, $matricule, $objet, $more)
 	
 	
 	$model = str_replace("\n", "<br/>\r\n", $model) ;
+	$model = str_replace("%SRV%",		$_SERVER['SERVER_NAME'].'/',		$model) ;
 	$model = str_replace("%NOM%",		$name,		$model) ;
 	$model = str_replace("%PRENOM%",	$forname,		$model) ;
 	$model = str_replace("%MATRI%",		$matricule,		$model) ;

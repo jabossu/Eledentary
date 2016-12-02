@@ -11,6 +11,26 @@ function comment($text)
 	echo "====================== -->\n" ;
 }
 
+function loadTraduction($lang)
+// fetch the language file and build the array $traduction from it
+{
+	$t = array() ;
+	
+	$handle = fopen('langues/'.$lang.'.csv', 'r');
+	if ($handle)
+	{
+		while (($line = fgetcsv($handle, 1000, ";" )) !== false) {
+			$t[ $line[0] ] = $line[1];
+		}
+		fclose($handle);
+	} else {
+		// error opening the file.
+		exit("Critical error : language ".$lang." doesnt exist");
+	} 
+	
+	return $t ;
+}
+
 function translate($clef, $style='', $var='')
 {
 	global $traduction ;
