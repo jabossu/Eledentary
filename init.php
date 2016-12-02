@@ -65,7 +65,3 @@ if ( !isset( $_SESSION['langue'] ) )
 
 // On utilise cette langue
 $traduction = loadTraduction('fr_FR');
-
-
-
-

@@ -141,7 +141,7 @@ else
 	// 	Middle row
 	// ========================
 
-	// Conection area
+	// Connexion area
 	echo '<div class="row loginpage">' ; 
 	require('pages/statiques/s_loginpage.php');
 	echo "</div>" ;
