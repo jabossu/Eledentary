@@ -18,7 +18,7 @@ $GLOBALS['bdd'] = $bdd ;
 //================================-
 function chargerClasse($classe)
 // On inclut la classe correspondante au paramètre passé.
-{	require 'classes/' . $classe . '.class.php' ; }
+{	require_once 'classes/' . $classe . '.class.php' ; }
 // On enregistre la fonction en autoload pour qu'elle soit appellée à chaque classe non déclarée.
 spl_autoload_register('chargerClasse'); 
 

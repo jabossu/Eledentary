@@ -1,6 +1,8 @@
 <?php
 
 function clean(array &$donnees)
+// Néttoie toutes les valeurs d'un tableau de ses balises HTML
+// Protège les $_POST et $_GEt contres les injections de code
 {
 	foreach ($donnees as $k => $v)
 	{
@@ -9,6 +11,7 @@ function clean(array &$donnees)
 }
 
 function log_add($id, $action, $details)
+// Tient les logs à jours
 {
     $l = array ( 
         'iduser' => intval( $id) ,
@@ -23,6 +26,7 @@ function log_add($id, $action, $details)
 
 
 function better_crypt($input, $rounds = 13)
+// Fonction de cryptage des mots de passes par hashage
 {
 	/*
 	$salt = "";
