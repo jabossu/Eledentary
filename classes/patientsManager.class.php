@@ -142,7 +142,8 @@ class patientsManager
 			FROM eld_patients AS p
 			LEFT JOIN eld_pathologies AS q
 			ON p.id_pathologie = q.id
-			WHERE q.id LIKE :pathofilter
+			WHERE	q.id LIKE :pathofilter
+				AND p.id_pathologie <> -1
 			ORDER BY p.id DESC") ;
 		
 		$q->bindValue(':pathofilter' , $patho ) ;
@@ -192,6 +193,7 @@ class patientsManager
 			LEFT JOIN eld_pathologies AS q
 			ON p.id_pathologie = q.id
 			WHERE p.soignant = :e_id
+				AND p.id_pathologie <> -1
 			ORDER BY p.id DESC") ;
 		
 		$q->bindValue(':e_id' , $e_id ) ;
@@ -267,6 +269,18 @@ class patientsManager
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		$q->closeCursor() ;
 	}
+	
+	public function heal(patient $p)
+	{
+		// Préparation
+		$q = $this->_db->prepare('UPDATE eld_patients SET	id_patho = -1 WHERE id = :id');
+		// Attribution des valeaurs
+		$q->bindValue(	':id'		,	$p->id() ) ;
+		// Execution
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
+		$q->closeCursor() ;
+	}
+	
 	public function get($id)
 	{
 		// Préparation
