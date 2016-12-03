@@ -1,27 +1,26 @@
+# Eledentary
+> Un gestionnaire de patient pour de larges communautés médicales
 
-========================================================================================
+## De quoi s'agit-il ?
 
-	- Coperyght : 2015, © Corporation Médecine Cluj
-	- Contact me : jacquesalexandrebossu@gmail.com
-	
-	- We use Bootstrap for our development :
-		see http://getbootstrap.com/getting-started/#license-faqs
+Eledentary est un gestionnaire de patients qui repose sur une base de données accessible aux soignants. Son but est de facilliter l'accès au patient pour les soignants, et réciproquement.
+Eledentary a été créé pour rpondre aux besoins des étduaints en Médecine Dentaire de l'[UMF Iuliu Hatieganu](http://umfcluj.ro) de Cluj-Napoca. L'esprit de cette plateforme est de garantir un accès équitable à la base de données à tout les étudiants inscrits sur le site.
 
-========================================================================================
+## Comment ça marche ?
+### Du point de vu des étudiants
+- Les étudiants peuvent créer un compte sur la plateforme en quelques étapes. Si leur inscription est approuvée par l'équipe d'administrateurs du site, ils auront immédiatement accès à une base de données contenant tout les patients enregistrés sur le site.
+- Les étudiants peuvent réserver un certain nombre de patients afin d'être sur qu'eux seul puissent les contacter. Ils obtiennent alors plus d'informations à propos du patient, notamment ses coordonées.
+- Une fois que l'étudiant a soigné son patient, il peut en choisir de nouveaux dans la base de données
 
-	This file is part of CMC Patient Manager.
+### Du point de vue des patients
+- les patients peuvent s'inscrire par eux-même sur la base de données en remplissant un court formulaire en ligne. Ils sont alors immédiatement visibles dans la base de données par tout les étudiants.
+- C'est à ceux-ci de contacter le patient et de s'organiser pour lui dispenser des soins.
 
-	CMC Patient Manager is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
+## Crédits
+- **Eledentary** est dévellopé par [JA Bossu](mailto:ja.bossu@cmcluj.fr) depuis Novembre 2014 sur une idée de *D. Scemama*.
+- Le développement est supporté par la [Corporation Médecine Cluj](http://cmcluj.fr) pour soutenir les étudiants dentaires.
+- Le projet est disponible sous licence **Apache 2.0**
 
-	CMC Patient Manager is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with CMC Patient Manager.  If not, see <http://www.gnu.org/licenses/>.
-
-	
+## Ressources
+- [Bootstrap](http://getbootstrap.com/)
+- [JQuery](https://jquery.com/)
