@@ -273,7 +273,7 @@ class patientsManager
 	public function heal(patient $p)
 	{
 		// Préparation
-		$q = $this->_db->prepare('UPDATE eld_patients SET	id_patho = -1 WHERE id = :id');
+		$q = $this->_db->prepare('UPDATE eld_patients SET	id_pathologie = -1 WHERE id = :id');
 		// Attribution des valeaurs
 		$q->bindValue(	':id'		,	$p->id() ) ;
 		// Execution
@@ -302,14 +302,15 @@ class patientsManager
 					q.nom_en_EN	AS patho_en_EN
 			FROM eld_patients AS p
 			LEFT JOIN eld_pathologies AS q
-			ON p.id_pathologie = q.id
+				ON p.id_pathologie = q.id
 			WHERE p.id LIKE :id
 			ORDER BY nom DESC");
 		//Attribution des valeurs
-		$q->bindValue(	':id'		,	$id		);
+		$q->bindValue(	':id'	, $id	);
 		// Execution
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		// Récupération
+		$d = $q->fetch(PDO::FETCH_ASSOC) ;
 		if ( $GLOBALS['_SESSION']['langue'] == 'fr_FR' )
 			{
 				$d['patho'] = $d['patho_fr_FR'] ;
@@ -318,7 +319,6 @@ class patientsManager
 			{
 				$d['patho'] = $d['patho_en_EN'] ;
 			}
-		$d = $q->fetch(PDO::FETCH_ASSOC) ;
 		return new patient( $d ) ;
 		$q->closeCursor() ;
 	}

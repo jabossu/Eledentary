@@ -60,3 +60,11 @@
 .nav li.notification a.admin-boutton b	{
 	font-size: 1.5em ;
 }
+
+.jumbotron-danger	{
+	background-color: #ff3333;
+	color: white;
+}
+.jumbotron-danger .lead	{
+	color: white;
+}

@@ -69,6 +69,7 @@ classe('o', 'col-sm-4') ;
 			if ( $p->soignant() == $_SESSION['profile']->id() or $_SESSION['profile']->statut() == 'administrateur' )
 			{
 				$button('?page=profile_patient&id=' . $p->id() . '&action=free', 'action_free', 'success');
+				$button('?page=heal_patient&id=' . $p->id(), 'action_heal', 'success');
 			}
 		}
 		$button('?page=patients', 'page_patients', 'primary');

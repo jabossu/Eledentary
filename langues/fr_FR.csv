@@ -138,8 +138,8 @@ news_msg_new;"Écrivez un article dans les deux langues, puis cliquez sur publie
 news_msg_error;"Un problème est survenu avec votre formulaire. Contactez un administrateur."
 news_missing_infos;"Champ vide : %info%"
 page_dentchat;Dent'Chat
-nom;"Nume de familie"
-prenom;Prenume
+nom;"Nom de famille"
+prenom;Prénom
 annee;"Année d'études"
 email;"Adresse Mail"
 telephone;"Numéro de téléphone"
@@ -179,3 +179,10 @@ bypassApproval;"Désactiver le contrôle d’accès"
 allowAnamneses;"Aciver les anamnèses"
 patientLimit;"Limite de patients"
 page_translation;Traduction
+action_heal;"Guérir le patient"
+page_heal_patients;"Patient sortant"
+confirmation;"Oui, je suis sur !"
+heal_patient_msg_title;"Attention !"
+heal_patient_msg_lead;"Une fois que vous confirmez la guérison du patient, vous ne pourrez plus accéder à ses données."
+heal_patient_msg;"<i>Plus jamais !</i> Êtes vous sur de vouloir marquer ce patient comme étant guéri ?"
+heal_patient_ok;"<b>Patient guéri !</b> Les modifications on bien été enregistrées."
