@@ -70,7 +70,10 @@ class elevesManager
 	public function hasReserved(eleve $e)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_patients WHERE soignant = :id');
+		$q = $this->_db->prepare('
+			SELECT id FROM eld_patients 
+			WHERE soignant = :id
+			AND id_pathologie <> -1');
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$e->id() ) ;
 		// Execution

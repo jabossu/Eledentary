@@ -142,7 +142,8 @@ class patientsManager
 			FROM eld_patients AS p
 			LEFT JOIN eld_pathologies AS q
 			ON p.id_pathologie = q.id
-			WHERE q.id LIKE :pathofilter
+			WHERE	q.id LIKE :pathofilter
+				AND p.id_pathologie <> -1
 			ORDER BY p.id DESC") ;
 		
 		$q->bindValue(':pathofilter' , $patho ) ;
@@ -192,6 +193,7 @@ class patientsManager
 			LEFT JOIN eld_pathologies AS q
 			ON p.id_pathologie = q.id
 			WHERE p.soignant = :e_id
+				AND p.id_pathologie <> -1
 			ORDER BY p.id DESC") ;
 		
 		$q->bindValue(':e_id' , $e_id ) ;
@@ -267,6 +269,18 @@ class patientsManager
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		$q->closeCursor() ;
 	}
+	
+	public function heal(patient $p)
+	{
+		// Préparation
+		$q = $this->_db->prepare('UPDATE eld_patients SET	id_pathologie = -1 WHERE id = :id');
+		// Attribution des valeaurs
+		$q->bindValue(	':id'		,	$p->id() ) ;
+		// Execution
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
+		$q->closeCursor() ;
+	}
+	
 	public function get($id)
 	{
 		// Préparation
@@ -288,14 +302,15 @@ class patientsManager
 					q.nom_en_EN	AS patho_en_EN
 			FROM eld_patients AS p
 			LEFT JOIN eld_pathologies AS q
-			ON p.id_pathologie = q.id
+				ON p.id_pathologie = q.id
 			WHERE p.id LIKE :id
 			ORDER BY nom DESC");
 		//Attribution des valeurs
-		$q->bindValue(	':id'		,	$id		);
+		$q->bindValue(	':id'	, $id	);
 		// Execution
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		// Récupération
+		$d = $q->fetch(PDO::FETCH_ASSOC) ;
 		if ( $GLOBALS['_SESSION']['langue'] == 'fr_FR' )
 			{
 				$d['patho'] = $d['patho_fr_FR'] ;
@@ -304,7 +319,6 @@ class patientsManager
 			{
 				$d['patho'] = $d['patho_en_EN'] ;
 			}
-		$d = $q->fetch(PDO::FETCH_ASSOC) ;
 		return new patient( $d ) ;
 		$q->closeCursor() ;
 	}
