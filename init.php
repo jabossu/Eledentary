@@ -11,7 +11,7 @@ $bdd = new PDO(
 	"$DB_PASSWORD"
 );
 $GLOBALS['bdd'] = $bdd ;
-
+error_reporting(0) ;
 
 //================================-
 // Autoload des classes

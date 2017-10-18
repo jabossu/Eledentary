@@ -2,7 +2,7 @@
 // ============= Donnees et Appels ===========
 
 // contient les parametres de base du site, notamment la base de données
-include("config.php") ; 
+require("config.php") ; 
 // contient les fonctions à appeller avant le code HTML
 // notamment la $bbd et les sessions.
 include("init.php") ;	
