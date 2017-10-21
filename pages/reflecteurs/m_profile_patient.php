@@ -10,25 +10,32 @@ $errorType = 0 ;
 *	5 : patient cannot be freed
 */
 
+// Clear recieved datas from any code
 clean($_POST) ;
 clean($_GET) ;
 
+# load a patient class and its manager
 $pm = new patientsManager($bdd) ;
 $p = new patient( array() ) ;
 
-
+# find out what we are actually going to do here
 if ( isset( $_GET['id'] ) and $pm->existe($_GET['id']) )
 {
-	if ( isset( $_GET['action'] ) )
+	if ( isset( $_GET['action'] ) AND $_POST == array()  )
+	# If an action is defined AND the page was not load because of submitting a post
+	# Then we need to execute the action
 	{
 		if ( $_GET['action'] == 'delete' )
 		{ $mode = 'delete' ; }
+		
 		elseif ( $_GET['action'] == 'reserve' )
 		{ $mode = 'reserve' ; }
+		
 		elseif ( $_GET['action'] == 'free' )
 		{ $mode = 'free' ; }
 	}
 	else
+	# No action was asked, or the page was accessed from a form sumbmition
 	{ $mode = 'edit' ; }
 }
 else
@@ -36,6 +43,7 @@ else
 	$mode = 'create' ;
 }
 
+#check that we received everything we need
 $valeursAttendues = array('nom', 'prenom', 'cnp', 'id_patho', 'dent', 'details', 'telephone', 'email', 'addresse') ;
 if ( missing_keys($_POST, $valeursAttendues) == false )
 {
