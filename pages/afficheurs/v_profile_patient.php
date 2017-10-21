@@ -18,11 +18,6 @@ classe('o', 'page-header') ;
 display('page_profile_patients', 'h1') ;
 classe('c') ;
 
-echo "<pre>";
-print_r($p);
-print_r($p->soignant());
-echo "</pre>";
-
 switch ($successType)
 # Printing various success notifications depending of what was done.
 # $successType was set in the reflector page

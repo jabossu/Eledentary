@@ -101,7 +101,7 @@ if ( $p->nom() != null
 	{
 		$pm->update($p) ;
 		$p=$pm->get($_GET['id']);
-		#log_add($_SESSION['profile']->id(), 'Patient Modified', $p->nom() . ' was modified as patient #' . $p->id() ) ;
+		log_add($_SESSION['profile']->id(), 'Patient Modified', $p->nom() . ' was modified as patient #' . $p->id() ) ;
 		$successType = 2 ;
 	}
 	elseif ( $mode == 'delete' and $_SESSION['profile']->statut() == 'administrateur' )
