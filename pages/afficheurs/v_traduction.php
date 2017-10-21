@@ -1,6 +1,6 @@
 <?php
 classe('o', 'page-header') ;
-display('page_traduction', 'h1' ) ;
+display('page_translation', 'h1' ) ;
 classe('c') ;
 
 ?>

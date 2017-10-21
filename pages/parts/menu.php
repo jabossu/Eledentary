@@ -41,6 +41,7 @@ $link = function($url, $texte, $glyph=null)
 		$link('news', 'page_news', 'text-background');
 		$link('config', 'page_config', 'cog');
 		$link('traduction', 'page_translation', 'transfer');
+		$link('diagnosys', 'page_diagnosys', 'cog');
 	}
 	
 	//echo "<li class='nav-header'><a class='nav-menu'>" . translate('divers') . "</a></li>" ;
