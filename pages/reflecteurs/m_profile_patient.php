@@ -55,8 +55,11 @@ if ( missing_keys($_POST, $valeursAttendues) == false )
 	}
 	elseif ( $mode == 'edit' )
 	{
-		$p = new patient( $_POST );
+		$p = $pm->get($_GET['id']);
 		$p->setId($_GET['id']) ;
+		
+		$p->hydrate( $_POST );
+		
 	}
 }
 
@@ -78,6 +81,8 @@ else
 	}
 }
 
+
+
 if ( $p->nom() != null
 		AND $p->prenom() != null
 		AND $p->cnp() != null
@@ -95,6 +100,7 @@ if ( $p->nom() != null
 	elseif ( $mode == 'edit' and $init != true )
 	{
 		$pm->update($p) ;
+		$p=$pm->get($_GET['id']);
 		log_add($_SESSION['profile']->id(), 'Patient Modified', $p->nom() . ' was modified as patient #' . $p->id() ) ;
 		$successType = 2 ;
 	}
