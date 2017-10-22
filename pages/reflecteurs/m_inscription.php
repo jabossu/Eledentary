@@ -3,7 +3,7 @@
 if ( $siteconfig->allowRegister() == 'off' )
 {
 	$errorType = 6;
-	exit('Inscription forbiden');
+	//exit('Inscription forbiden');
 }
 else
 {
@@ -48,15 +48,16 @@ else
 	// On fait ça là, afin de les afficher plus tard sur la page.
 	
 	// A chaque valeur invalide, l'array recevra la valeur 'Null'.
-	$donnees['nom']		=	preg_match(	'#^[a-z -]{2,}$#i'									, $_POST['nom']			) ? strtoupper($_POST['nom'])		: null;
-	$donnees['prenom']	=	preg_match(	'#^[a-z-]{2,}$#i'									, $_POST['prenom']		) ? strtoupper($_POST['prenom'])	: null;
-	$donnees['matricule']	=	preg_match(	'#^[0-9]{4,5}$#'									, $_POST['matricule']	) ? $_POST['matricule']				: null;
-	$donnees['email']	=	preg_match(	'#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'		, $_POST['email']		) ? $_POST['email'] 				: null;
-	$donnees['telephone']=	preg_match(	'#^(0|\+40)[-. ]?7[0-9]{2}([-. ]?[0-9]{3}){2}$#'	, $_POST['telephone']	) ? $_POST['telephone']				: null;
-	$donnees['annee']	=	preg_match(	'#^[3-6]$#'											, $_POST['annee'] 		) ? (int) $_POST['annee'] 			: null;
+	$donnees['nom']	= preg_match( '#^[a-z -]{2,}$#i', $_POST['nom'] ) ? strtoupper($_POST['nom']) : null;
+	$donnees['prenom'] = preg_match( '#^[a-z-]{2,}$#i' , $_POST['prenom'] ) ? strtoupper($_POST['prenom'])	: null;
+	$donnees['matricule'] = preg_match( '#^[0-9]{4,5}$#' , $_POST['matricule'] ) ? $_POST['matricule'] : null;
+	$donnees['email'] = preg_match(	'#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#' , $_POST['email'] ) ? $_POST['email'] : null;
+	$donnees['telephone']= preg_match( '#^(0|\+40)[-. ]?7[0-9]{2}([-. ]?[0-9]{3}){2}$#' , $_POST['telephone'] ) ? $_POST['telephone'] : null;
+	$donnees['annee'] = preg_match(	'#^[3-6]$#' , $_POST['annee'] ) ? (int) $_POST['annee'] : null;
 	
 	if (  $_POST['motDePasse'] ==  $_POST['confMotDePasse'] )
-	{	$donnees['motDePasse']	=	preg_match(	'#^[a-zA-Z0-9@_-]{6,}$#'	, $_POST['motDePasse']	) ? better_crypt($_POST['motDePasse'])		: null;	}
+	{	$donnees['motDePasse']	= preg_match( '#^[a-zA-Z0-9@_-]{6,}$#', $_POST['motDePasse'] ) ? my_encrypt($_POST['motDePasse']) : 'XXX';	}
+	else { $donnees['motDePasse'] = null; }
 
 	// Il peut manquer des valeurs dans $_POST
 	if ( contains_null($_POST) )
@@ -77,10 +78,6 @@ else
 		{
 			$errorType = 5;
 		}
-		elseif ( $siteconfig->allowRegister() == 0 )
-		{
-			$errorType = 6;
-		}
 		// Sinon, on peut créer l'élève.
 		else
 		{
@@ -90,7 +87,7 @@ else
 			{
 				envoyerMail($inscrit, 'Inscription réussie', 'inscription_waitconfirm') ;		
 				$em->add($inscrit) ;
-			
+				
 				$id = $em->getId($inscrit->matricule() ) ;
 		   		log_add($id, 'Sign-Up', 'Account created - waiting for confirm') ;
 			}

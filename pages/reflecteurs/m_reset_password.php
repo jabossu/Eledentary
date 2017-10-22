@@ -139,8 +139,7 @@ else
 			if (  $_POST['motDePasse'] ==  $_POST['confMotDePasse'] )
 			{
 				// Sont ils valides ?
-				$password	=	preg_match(	'#^[a-zA-Z0-9@_-]{6,}$#', $_POST['motDePasse']	)
-					? better_crypt($_POST['motDePasse']) : null;
+				$password = preg_match(	'#^[a-zA-Z0-9@_-]{6,}$#', $_POST['motDePasse'] ) ? my_encrypt($_POST['motDePasse']) : null;
 				// non : il faut les redemander
 				if ($password == null)
 				{

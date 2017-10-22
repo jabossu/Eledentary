@@ -1,5 +1,4 @@
 <?php
-
 $errorType = 0 ;
 /*
 *	1 = Formulaire incohérent
@@ -14,7 +13,6 @@ $em = new elevesManager($bdd) ;
 
 // On fait un strip_tags
 clean($_POST) ;
-
 // On vérifie que toutes les clefs sont là
 if (	missing_keys( $_POST, $parametresAttendus ) )// Si il manque de des clefs
 {
@@ -46,9 +44,7 @@ else
 			$profile = $em->get($id) ;
 			
 			// Le mot de passe est-il bon ?
-			$original =  $profile->motDePasse() ;
-			$input = better_crypt( $_POST['motDePasse'] ) ;
-			if ( $original != $input )
+			if ( my_decrypt($profile->motDePasse(), my_encrypt( $_POST['motDePasse'] ) ) )
 			{
 				$errorType = 4 ;
 				log_add($id, 'Attempt Log-in', 'FAILED') ;
@@ -66,7 +62,7 @@ else
 				else
 				{
 					$_SESSION['profile'] = $em->get($id) ;
-                    log_add($id, 'Attempt Log-in', 'success') ;
+                    			log_add($id, 'Attempt Log-in', 'success') ;
 				}
 			}
 		}
