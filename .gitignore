@@ -2,3 +2,5 @@
 ###########################
 
 config.php
+pages/statiques/diagnosys.php
+phpinfo.php
