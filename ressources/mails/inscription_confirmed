@@ -1,6 +1,6 @@
 Bonjour %PRENOM% %NOM%,
 
-Vous avez crée un compte sur le site www.eoolh.legtux.org, et nous vous en remercions.
+Vous avez crée un compte sur le site %SRV%, et nous vous en remercions.
 Vous pouvez vous connecter avec les informations suivantes :
 <ul><li><b>Matricule :</b> %MATRI%</li><li><b>Mot de passe :</b> votre mot de passe</li></ul>
 À bientot sur notre site !
@@ -10,7 +10,7 @@ Vous pouvez vous connecter avec les informations suivantes :
 
 Hello %PRENOM% %NOM% !
 
-You created a user account on www.eoolh.legtux.org, witch was approved by our admins. Welcome !
+You created a user account on %SRV%, witch was approved by our admins. Welcome !
 
 You can now sign in with the folowing informations :
 <ul><li><b>Matricule :</b> %MATRI%</li><li><b>Password :</b> votre mot de passe</li></ul>
