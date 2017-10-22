@@ -40,7 +40,7 @@ class logManager
 		$q = $this->_db->query("SELECT
 			l.timestamp AS timestamp,
 			l.ipaddress AS ipaddress,
-			DATE_FORMAT(l.timestamp, '[ %a %d-%M ] %H:%i') AS date,
+			DATE_FORMAT(l.timestamp, '[ %a %d-%b-%y ] %H:%i') AS date,
 			l.action AS action,
 			l.iduser AS iduser,
 			l.details AS details,
@@ -90,6 +90,16 @@ class logManager
 		return $d ;
 		// Récupération
 		$q->closeCursor() ;
+	}
+	
+	function getOldestYear()
+	{
+		// Preparation
+		$q = $this->_db->query("
+		SELECT DATE_FORMAT( MIN(timestamp), '%Y' ) AS year
+			FROM eld_logs");
+		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
+		return $d[0]['year'];
 	}
 	
 }
