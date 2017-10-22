@@ -6,7 +6,7 @@ function clean(array &$donnees)
 {
 	foreach ($donnees as $k => $v)
 	{
-		$donnees[$k] = strip_tags($v) ;
+		$donnees[$k] = htmlspecialchars($v) ;
 	}
 }
 
@@ -28,34 +28,26 @@ function log_add($id, $action, $details)
 function better_crypt($input, $rounds = 13)
 // Fonction de cryptage des mots de passes par hashage
 {
-	/*=====================================
-	!!!	CODE FONCTIONNEL APRES PHP 7
-	*======================================
-	
-	$salt = "";
 
-	$salt_chars = array_merge(range('A','Z'), range('a','z'), range(0,9));
-	for($i=0; $i < 22; $i++)
-	{
-		$salt .= $salt_chars[array_rand($salt_chars)];
-	}
-	return crypt($input, sprintf('$2a$%02d$', $rounds) . $salt);
-	*/
-	
 	return sha1($input) ;
 	
 }
 
-function generate_key($lenght = 100)
-// crée une clef de 100 caractères aléatoires, alphanumériques
+function my_encrypt( string $input )
+# This function is just here to encapsulate the default PHP hashing function
+# I do this to make it easier later on to update password hashing as security
+# standards evolve.
 {
-	$lenght = ( intval($lenght) > 0 ) ? intval($lenght) : 25 ;
+	$salt = openssl_random_pseudo_bytes( 22 ); #Let us have a salt !
+	$options = array( 'cost' => 11, 'salt' => $salt, );
 	
-	$chars = array_merge(range('A','Z'), range('a','z'), range(0,9));
-	for($i=0; $i < $lenght; $i++)
-	{
-		$str .= $chars[array_rand($chars)];
-	}
-	
-	return $str ;
+	return password_hash( $input, PASSWORD_BCRYPT, $options);
+}
+
+function my_decrypt( $password, $hash)
+# This function is just here to encapsulate the default PHP hashing function
+# I do this to make it easier later on to update password hashing as security
+# standards evolve.
+{
+	return password_verify( $password, $hash) ; # Return a boolean
 }

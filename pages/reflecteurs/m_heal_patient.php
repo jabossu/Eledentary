@@ -60,7 +60,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 //	Vérifier le mot de passe du soignant
 	if ( ! missing_keys( $_POST, $parametresAttendus ) ) # Le motDePasse a bien été reçu
 	{
-		if ( $_SESSION['profile']->motDePasse() == better_crypt( $_POST['motDePasse'] ) ) # mot de passe correcte
+		if ( my_decrypt( $_POST['motDePasse'], $_SESSION['profile']->motDePasse() ) ) # mot de passe correct
 		{
 		 	//	Guérir le patient
 		 	$pm->heal($p);
