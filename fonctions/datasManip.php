@@ -24,15 +24,6 @@ function log_add($id, $action, $details)
 
 }
 
-
-function better_crypt($input, $rounds = 13)
-// Fonction de cryptage des mots de passes par hashage
-{
-
-	return sha1($input) ;
-	
-}
-
 function my_encrypt( string $input )
 # This function is just here to encapsulate the default PHP hashing function
 # I do this to make it easier later on to update password hashing as security
