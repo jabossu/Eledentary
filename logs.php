@@ -4,6 +4,8 @@
 // ============= Donnees et Appels ===========
 include("config.php") ; // contient les parametres de base du site, comme ceux de la base de donnee, ou encore son nom
 include("init.php") ;	// contient les fonctions à appeller avant tout les reste, notamment la $bbd et les sessions.
+$lm = new logManager($bdd) ;
+
 // ============= Ajout des parties de pages ===========
 // Ajoute tout le contenu des balises <head>
 include("pages/statiques/header.php") ;
@@ -69,7 +71,10 @@ classe('o', "row") ;
 			echo '<h3>&nbsp;&nbsp;&nbsp;&nbsp;Select a Date : </h3>' ;
 			classe('o', 'well text-center') ;
 			$f = new form('inline') ;
-			$f->liste( 'year', null, array('2015' => '2015'), $_POST['date'] ) ;
+				for ($i = $lm->getOldestYear() ; $i <= date("Y"); $i++) {
+				    $y[$i] = $i;
+				}
+			$f->liste( 'year', null, $y, $_POST['year'] ) ;
 			$f->liste( 'month', null, $monthList, $_POST['month'] ) ;
     		$f->liste( 'day', null, $days, $_POST['day'] ) ;
 			$f->submit('Filter', 'warning') ;
@@ -78,7 +83,6 @@ classe('o', "row") ;
 		classe('c') ;
 		
 		echo '<pre>' ;
-		$lm = new logManager($bdd) ;
 		
 		$vA = array('year', 'month', 'day') ;
 		if ( missing_keys($_POST, $vA) AND missing_keys( $_POST, $vA) != $VA OR ( contains_null($_POST) ) )
