@@ -40,5 +40,7 @@ function my_decrypt( $password, $hash)
 # I do this to make it easier later on to update password hashing as security
 # standards evolve.
 {
-	return password_verify( $password, $hash) ; # Return a boolean
+	$result = ( password_verify( $password, $hash ) ) ? true : false ;
+
+	return $result ; # Return a boolean
 }

@@ -44,7 +44,8 @@ else
 			$profile = $em->get($id) ;
 			
 			// Le mot de passe est-il bon ?
-			if ( my_decrypt($profile->motDePasse(), my_encrypt( $_POST['motDePasse'] ) ) )
+			if ( my_decrypt($profile->motDePasse(), my_encrypt( $_POST['motDePasse'] ) ) == false )
+			# Non, le mot de passe est faux
 			{
 				$errorType = 4 ;
 				log_add($id, 'Attempt Log-in', 'FAILED') ;
