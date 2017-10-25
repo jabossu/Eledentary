@@ -69,7 +69,7 @@ if ( !isset($_GET['c']) )
 				{
 					$k = $km->get_with_id( $sujet->id() ) ;
 					
-					envoyerMail($sujet, 'Changement de mot de passe', 'password_modification', $k->value()) ;
+					try { envoyerMail($sujet, 'Changement de mot de passe', 'password_modification', $k->value()) ; }
 					$log_details = 'Ask again : send another mail' ;
 					
 					$state  = 2 ;
@@ -86,7 +86,7 @@ if ( !isset($_GET['c']) )
 					
 					$km->add($k) ;
 					
-					envoyerMail($sujet, 'Changement de mot de passe', 'password_modification', $k->value()) ;
+					try { envoyerMail($sujet, 'Changement de mot de passe', 'password_modification', $k->value()) ; }
 					$log_details = 'Send first mail' ;
 					
 					$state  = 2 ;
@@ -158,7 +158,7 @@ else
 					$state = 4 ;
 					$successType = 2 ;
 					log_add($sujet->id(), 'Password Changed', 'Successfull change') ;
-					envoyerMail($sujet, 'Changement de mot de passe', 'password_modifconfirm') ;
+					try { envoyerMail($sujet, 'Changement de mot de passe', 'password_modifconfirm') ; }
 				}
 			}
 			// Non : les mot de passe sont différents.

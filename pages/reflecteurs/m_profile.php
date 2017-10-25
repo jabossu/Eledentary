@@ -37,12 +37,12 @@ else
 		// Tout les champs sont remplis.
 		else
 		{
-			$donnees['nom']		=	preg_match(	'#^[a-z -]{2,}$#i'						, $_POST['nom']			) ? strtoupper($_POST['nom'])		: null;
-			$donnees['prenom']	=	preg_match(	'#^[a-z-]{2,}$#i'						, $_POST['prenom']		) ? strtoupper($_POST['prenom'])	: null;
-			$donnees['matricule']	=	preg_match(	'#^[0-9]{4,5}$#'						, $_POST['matricule']	) ? $_POST['matricule']				: null;
-			$donnees['email']	=	preg_match(	'#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#'	, $_POST['email']		) ? $_POST['email'] 				: null;
-			$donnees['telephone']=	preg_match(	'#^(0|\+40)[-. ]?7[0-9]{2}([-. ]?[0-9]{3}){2}$#', $_POST['telephone']	) ? $_POST['telephone']				: null;
-			$donnees['annee']	=	preg_match(	'#^[3-6]$#', $_POST['annee']	) ? (int) $_POST['annee'] : null ;
+			$donnees['nom'] = 	preg_match( '#^[a-z -]{2,}$#i', $_POST['nom'] ) ? strtoupper($_POST['nom']) : null;
+			$donnees['prenom'] = 	preg_match( '#^[a-z-]{2,}$#i' , $_POST['prenom'] ) ? strtoupper($_POST['prenom']) : null;
+			$donnees['matricule'] =	preg_match( '#^[0-9]{4,5}$#' , $_POST['matricule'] ) ? $_POST['matricule'] : null;
+			$donnees['email'] =	preg_match( '#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#' , $_POST['email'] ) ? $_POST['email'] : null;
+			$donnees['telephone']=	preg_match( '#^(0|\+40)[-. ]?7[0-9]{2}([-. ]?[0-9]{3}){2}$#', $_POST['telephone'] ) ? $_POST['telephone'] : null;
+			$donnees['annee'] =	preg_match( '#^[3-6]$#', $_POST['annee'] ) ? (int) $_POST['annee'] : null ;
 			
 			// Certains champs étaient incorrects
 			if (contains_null($donnees) )
@@ -79,26 +79,26 @@ else
 				{
 					case 'ban':
 						$em->ban($sujet);
-						envoyerMail($sujet, 'Compte banni', 'account_banned') ;
+						try { envoyerMail($sujet, 'Compte banni', 'account_banned') ; }
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' was banned') ;
 						$successType = 4;
 					break;
 					case 'approve':
 						$em->approve($sujet);
-						envoyerMail($sujet, 'Compte approuvé', 'inscription_confirmed') ;
+						try { envoyerMail($sujet, 'Compte approuvé', 'inscription_confirmed') ; }
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' was approved') ;
 						$successType = 2;
 					break;
 					case 'delete':
 						$em->delete($sujet);
-						envoyerMail($sujet, 'Compte supprimé', 'account_deleted') ;
+						try { envoyerMail($sujet, 'Compte supprimé', 'account_deleted') ; }
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' was deleted') ;
 						$successType = 3;
 						//$sujet = new eleve( array() ) ;
 					break;
 					case 'make_admin':
 						$em->chadmin($sujet);
-						envoyerMail($sujet, 'Adminisation', 'account_admin') ;
+						try { envoyerMail($sujet, 'Adminisation', 'account_admin') ; }
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' became Admin') ;
 						$successType = 5;
 					break;

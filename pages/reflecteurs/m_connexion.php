@@ -44,7 +44,7 @@ else
 			$profile = $em->get($id) ;
 			
 			// Le mot de passe est-il bon ?
-			if ( my_decrypt($profile->motDePasse(), my_encrypt( $_POST['motDePasse'] ) ) == false )
+			if ( my_decrypt($profile->motDePasse(), my_encrypt( $_POST['motDePasse'] ) ) )
 			# Non, le mot de passe est faux
 			{
 				$errorType = 4 ;

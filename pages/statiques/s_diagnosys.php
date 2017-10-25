@@ -5,18 +5,21 @@
 # Use this page in your developement to create tests and function
 # and display them as you wish in the user interface.
 # This file has been added in the gitignoer file
+echo 1;
 
-$password = "kangourou";
+$em = new elevesManager($bdd);
 
-$hash = my_encrypt( $password );
+$e = $em->get( $em->getId('30721') );
 
-show($password);
-show($hash);
-show( my_decrypt( $password.'h', $hash ) );
-
-if (my_decrypt( $password, $hash )) {
-    echo "true";
+try 
+{
+	envoyerMail($e, 'Inscription réussie', 'inscription_waitconfirm') ;	
 }
-else {
-    echo "false";
+
+catch (Exception $e)
+{
+	echo $e;
 }
+
+
+echo 'end';
