@@ -52,8 +52,7 @@ function envoyerMail(eleve $destinataire, $objet, $src, $more=null)
 	$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n" ;
 	
 	#Sending the mail and checking if it worked
-	if ( mail($to ,$objet , $message, $headers) == false ) ;
-	{	throw new Exception("Mail could not be send");	}
+	return mail($to ,$objet , $message, $headers) ;
 	
 }
 
