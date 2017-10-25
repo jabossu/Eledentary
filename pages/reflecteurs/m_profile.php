@@ -72,6 +72,7 @@ else
 		// L'action est définie
 		if ( isset( $_GET['action'] ) )
 		{
+			
 			// L'action est une action valide
 			if ( in_array( $_GET['action'], $getAttendues ) )
 			{
@@ -79,26 +80,26 @@ else
 				{
 					case 'ban':
 						$em->ban($sujet);
-						try { envoyerMail($sujet, 'Compte banni', 'account_banned') ; }
+						envoyerMail($sujet, 'Compte banni', 'account_banned') ; 
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' was banned') ;
 						$successType = 4;
 					break;
 					case 'approve':
 						$em->approve($sujet);
-						try { envoyerMail($sujet, 'Compte approuvé', 'inscription_confirmed') ; }
+						envoyerMail($sujet, 'Compte approuvé', 'inscription_confirmed') ;
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' was approved') ;
 						$successType = 2;
 					break;
 					case 'delete':
 						$em->delete($sujet);
-						try { envoyerMail($sujet, 'Compte supprimé', 'account_deleted') ; }
+						envoyerMail($sujet, 'Compte supprimé', 'account_deleted') ;
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' was deleted') ;
 						$successType = 3;
 						//$sujet = new eleve( array() ) ;
 					break;
 					case 'make_admin':
 						$em->chadmin($sujet);
-						try { envoyerMail($sujet, 'Adminisation', 'account_admin') ; }
+						envoyerMail($sujet, 'Adminisation', 'account_admin') ;
                     	log_add($_SESSION['profile']->id(), 'Role changed', 'Account #' . $sujet->id() . ' named ' . $sujet->nom() . ' ' . $sujet->prenom() . ' became Admin') ;
 						$successType = 5;
 					break;
