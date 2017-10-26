@@ -12,7 +12,6 @@ try {	$bdd = new PDO(
 catch(Exception $e)	{
 	echo "Database Error : ".$e->getMessage() ;	}
 $GLOBALS['bdd'] = $bdd ;
-error_reporting(0) ;
 
 //================================-
 // Autoload des classes
