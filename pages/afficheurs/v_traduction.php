@@ -3,6 +3,13 @@ classe('o', 'page-header') ;
 display('page_translation', 'h1' ) ;
 classe('c') ;
 
+if ($alertmessage != "") {
+    echo '<div class="alert alert-' . "danger" . ' fade in">
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
+	$alertmessage .
+	'</div>' ;
+}
+
 ?>
 
 <form method='post' action='/?page=traduction'>
