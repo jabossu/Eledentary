@@ -85,7 +85,7 @@ else
 			
 			if ($siteconfig->bypassApproval() == 'off')
 			{
-				try { envoyerMail($inscrit, 'Inscription réussie', 'inscription_waitconfirm') ;	}	
+				envoyerMail($inscrit, 'Inscription réussie', 'inscription_waitconfirm') ;	
 				$em->add($inscrit) ;
 				
 				$id = $em->getId($inscrit->matricule() ) ;
@@ -100,7 +100,7 @@ else
 			
 		   		log_add($id, 'Sign-Up', 'Account created and approved without admin') ;
 		   		 
-				try {envoyerMail($inscrit, 'Compte approuvé', 'inscription_confirmed') ; }
+				envoyerMail($inscrit, 'Compte approuvé', 'inscription_confirmed') ;
 			}
 		}
 	}
