@@ -332,6 +332,25 @@ class patientsManager
 		$q->closeCursor() ;
 	}
 	
+	function getSoignant($id)
+	{
+		/*if ( $this->existe($id) == false )
+		{ exit 1 }*/
+		
+		// Preparation
+		$q = $this->_db->prepare("SELECT soignant FROM eld_patients	WHERE	id = :id") ;
+		// Attribution des valeurs
+		$q->bindValue(':id', $id);
+		
+		// Execution
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
+		
+		// Récupération
+		$d = $q->fetch(PDO::FETCH_ASSOC) ;
+		return $d['soignant'] ;
+		$q->closeCursor() ;
+	}
+	
 	public function compter( $patho=null )
 	{
 		$patho = ( intval($patho) == 0 )		? '%'	: $patho	;
