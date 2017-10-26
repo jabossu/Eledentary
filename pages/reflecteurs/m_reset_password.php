@@ -62,14 +62,13 @@ if ( !isset($_GET['c']) )
 			// oui
 			if ( $sujet->email() == $_POST['email'] )
 			{
-				
 				// Y a t'il déja une demande à son nom ?
 				// oui
 				if ( $km->demandeExiste($sujet->id()) )
 				{
 					$k = $km->get_with_id( $sujet->id() ) ;
 					
-					envoyerMail($sujet, 'Changement de mot de passe', 'password_modification', $k->value()) ;
+					envoyerMail($sujet, 'Changement de mot de passe', 'password_modification', $k->value()) ; 
 					$log_details = 'Ask again : send another mail' ;
 					
 					$state  = 2 ;
@@ -78,7 +77,7 @@ if ( !isset($_GET['c']) )
 				// non : c'est une nouvelle demande
 				else
 				{
-					$clef = generate_key() ;
+					$clef = uniqid() ;
 					
 					$k = new passkey( array( 
 						"userid" => $sujet->id(),
@@ -178,20 +177,3 @@ else
 		$state = 2 ;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

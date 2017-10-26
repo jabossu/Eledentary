@@ -5,10 +5,10 @@
 require("config.php") ; 
 // contient les fonctions à appeller avant le code HTML
 // notamment la $bbd et les sessions.
-include("init.php") ;	
+require("init.php") ;	
 
 // Ajoute tout le contenu des balises <head>
-include("pages/parts/header.php") ;
+require("pages/parts/header.php") ;
 // Le body, avec un container fixe de bootstrap
 echo '<body class="container-fluid" >';
 

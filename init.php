@@ -1,5 +1,4 @@
 <?php
-
 //date_default_timezone_set('Europe/Bucharest') ;
 
 //================================-
@@ -31,15 +30,15 @@ session_start() ;
 //================================-
 // Inclusion des fonctions
 //================================-
-include_once('ressources/bbcode.php') ;
-include_once('ressources/smileys.php') ;
+require_once('ressources/bbcode.php') ;
+require_once('ressources/smileys.php') ;
 
-include_once('fonctions/textuelles.php') ;
-include_once('fonctions/testsTools.php') ;
-include_once('fonctions/debug.php') ;
-include_once('fonctions/datasManip.php') ;
-include_once('fonctions/mails.php') ;
-include_once('fonctions/f_bbcode.php') ;
+require_once('fonctions/textuelles.php') ;
+require_once('fonctions/testsTools.php') ;
+require_once('fonctions/debug.php') ;
+require_once('fonctions/datasManip.php') ;
+require_once('fonctions/mails.php') ;
+require_once('fonctions/f_bbcode.php') ;
 
 if ( isset( $_SESSION['profile'] ) ) 
 {

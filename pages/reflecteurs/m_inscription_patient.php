@@ -61,7 +61,7 @@ if ( $p->nom() != null
 		$p->setDent(00) ;
 		$pm->add($p) ;
 		log_add($_SESSION['profile']->id(), 'Patient Added', $p->nom() . ' was registered as patient #' . $p->id() ) ;
-		mailPatient($p, 'Inscription réussie', 'inscription_confirmpatient') ;
+		mailPatient($p, 'Inscription réussie', 'inscription_confirmpatient') ; 
 		$successType = 1 ;
 		$p = new patient(array() );
 	}

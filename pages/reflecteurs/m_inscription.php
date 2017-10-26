@@ -85,7 +85,7 @@ else
 			
 			if ($siteconfig->bypassApproval() == 'off')
 			{
-				envoyerMail($inscrit, 'Inscription réussie', 'inscription_waitconfirm') ;		
+				envoyerMail($inscrit, 'Inscription réussie', 'inscription_waitconfirm') ;	
 				$em->add($inscrit) ;
 				
 				$id = $em->getId($inscrit->matricule() ) ;
