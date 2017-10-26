@@ -34,7 +34,7 @@ class eleve
 	
 	// Setters
 	
-	public function setId($id) 				{ $this->_id = (int) $id ; }
+	public function setId($id) 			{ $this->_id = $id ; }
 	public function setNom($nom)			{ $this->_nom = $nom ; }
 	public function setPrenom($prenom)		{ $this->_prenom = $prenom ; }
 	public function setMatricule($matricule) {$this->_matricule = $matricule ; }

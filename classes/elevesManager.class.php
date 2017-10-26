@@ -16,6 +16,14 @@ class elevesManager
 	//			Fonctions
 	// ===================================
 	
+	public function genId()
+	{
+		do {
+			$id = uniqid();	    
+		} while ($this->idExiste($id));
+		return $id;
+	}
+	
 	public function add(eleve $eleve)
 	{
 		// Preparation
@@ -23,14 +31,14 @@ class elevesManager
 			id = :id, nom = :nom, prenom = :prenom, matricule = :matricule, motDepasse = :motDepasse, annee = :annee, email = :email, telephone = :telephone, statut = :statut, soins = :soins") ;
 		
 		// Attribution des valeurs
-		$q->bindValue(	':id'		,	''						);
+		$q->bindValue(	':id'		,	$this->genId()			);
 		$q->bindValue(	':nom'		,	$eleve->nom()			);
 		$q->bindValue(	':prenom'	,	$eleve->prenom()		);
-		$q->bindValue(	':motDepasse',	$eleve->motDePasse()	);
-		$q->bindValue(	':matricule',	$eleve->matricule()		);
+		$q->bindValue(	':motDepasse'	,	$eleve->motDePasse()	);
+		$q->bindValue(	':matricule'	,	$eleve->matricule()		);
 		$q->bindValue(	':annee'	,	$eleve->annee()			);
 		$q->bindValue(	':email'	,	$eleve->email()			);
-		$q->bindValue(	':telephone',	$eleve->telephone()		);
+		$q->bindValue(	':telephone'	,	$eleve->telephone()		);
 		$q->bindValue(	':statut'	,	'nouveau'		);
 		$q->bindValue(	':soins'	,	0			);
 		
