@@ -15,11 +15,19 @@ class patientsManager
 	// Fonctions
 	//====================
 	
+	public function genId()
+	{
+		do {
+			$id = uniqid();	    
+		} while ($this->existe($id));
+		return $id;
+	}
+	
 	function add(patient $p)
 	{
 		// Preparation
 		$q = $this->_db->prepare("INSERT INTO eld_patients
-		SET	id = '',
+		SET	id = :id,
 			nom = :nom,
 			prenom = :prenom,
 			cnp = :cnp,
@@ -32,6 +40,7 @@ class patientsManager
 			soignant = 0") ;
 		
 		// Attribution des valeurs
+		$q->bindValue(':id', $this->genId() );
 		$q->bindValue(':nom', $p->nom());
 		$q->bindValue(':prenom', $p->prenom());
 		$q->bindValue(':cnp', $p->cnp());
@@ -320,6 +329,25 @@ class patientsManager
 				$d['patho'] = $d['patho_en_EN'] ;
 			}
 		return new patient( $d ) ;
+		$q->closeCursor() ;
+	}
+	
+	function getSoignant($id)
+	{
+		/*if ( $this->existe($id) == false )
+		{ exit 1 }*/
+		
+		// Preparation
+		$q = $this->_db->prepare("SELECT soignant FROM eld_patients	WHERE	id = :id") ;
+		// Attribution des valeurs
+		$q->bindValue(':id', $id);
+		
+		// Execution
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
+		
+		// Récupération
+		$d = $q->fetch(PDO::FETCH_ASSOC) ;
+		return $d['soignant'] ;
 		$q->closeCursor() ;
 	}
 	

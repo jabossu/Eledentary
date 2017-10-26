@@ -4,13 +4,14 @@
 //================================-
 // Connexion à la base de données
 //================================-
-$bdd = new PDO(
+try {	$bdd = new PDO(
 	"mysql:host=$DB_HOST;dbname=$DB_NAME",
 	"$DB_USER",
 	"$DB_PASSWORD"
-);
+	);	}
+catch(Exception $e)	{
+	echo "Database Error : ".$e->getMessage() ;	}
 $GLOBALS['bdd'] = $bdd ;
-error_reporting(0) ;
 
 //================================-
 // Autoload des classes

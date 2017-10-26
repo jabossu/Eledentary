@@ -115,7 +115,6 @@ class pathologiesManager
 		return $d ;
 		$q->closeCursor() ;
 	}
-
 	
 	function liste()
 	{

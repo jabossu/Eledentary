@@ -13,6 +13,10 @@
 // Quels sont les langues actuellement utilisées ?
 $ref = $siteconfig->websiteLanguage() ;
 $cur = $_SESSION['langue'] ;
+$file = "langues/".$cur.".csv";
+
+if (substr(sprintf('%o', fileperms($file)), -4) != "0666" ) 
+{ $alertmessage = "<strong>Warning ! </strong>Traduction file is not writable"; }
 
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // si le formulaire a été envoyé
@@ -21,17 +25,33 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 
 	foreach($_POST as $keyword => $value)
 	{
-		$file = fopen('langues/fr_FR.csv',"w+");
-		if($file)
+		$alertmessage = "";
+		try
 		{
-			foreach ($_POST as $keyword => $line)
+			if ( file_exists($file) )
 			{
-				fputcsv($file, array($keyword,$line), ';');
+				$fw = fopen($file,"w");
+				if($fw)
+				{
+					foreach ($_POST as $keyword => $line)
+					{
+						fputcsv($fw, array($keyword,$line), ';');
+					}
+					fclose($fw);
+				}
+				else
+				{	throw new Exception('Writting file failed');	}
 			}
-			fclose($file);
+			else 
+			{
+			    throw new Exception('File not found');
+			}
+			
 		}
-		else
-		{	exit("Critical error : file not found");	}
+		catch(Exception $e)
+		{
+			$alertmessage = "<strong>Error while saving :</strong> ".$e->getMessage() ;
+		}
 	}
 }
 
