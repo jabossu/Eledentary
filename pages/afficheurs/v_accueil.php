@@ -68,14 +68,14 @@ classe('o', 'row');
 		
 		classe('o', 'col-md-10 col-md-push-1');
 ?>		<div class="progress">
-			<div class="progress-bar progress-bar-warning progress-bar-striped progress-bar-left" style="min-width: 2em; width: <?php echo $f_pr ;?>%">
-				<span class="sr-only"><?php echo $f_pr ;?>% Complete</span>
+			<div class="progress-bar progress-bar-warning progress-bar-striped progress-bar-left" style="width: <?php echo $f_pr ;?>%">
+				<span class="sr-only"><?php echo $f_pr ;?>% Complete</span><b><i>Reserved</b></i>
 			</div>
-			<div class="progress-bar progress-bar-striped" style="min-width: 2em; width: <?php echo $f_pf ;?>%">
-				<span class="sr-only"><?php echo $f_pf ;?>% Complete</span>
+			<div class="progress-bar progress-bar-striped <?php if ($f_pr == 0) { echo "progress-bar-left" ; }?>" style="width: <?php echo $f_pf ;?>%">
+				<span class="sr-only"><?php echo $f_pf ;?>% Complete</span><b>Free</b>
 			</div>
-			<div class="progress-bar progress-bar-success  progress-bar-striped progress-bar-right" style="min-width: 2em; width: <?php echo $f_e ;?>%">
-				<span class="sr-only"><?php echo $f_e ;?>% Complete</span>
+			<div class="progress-bar progress-bar-success  progress-bar-striped progress-bar-right" style="width: <?php echo $f_e ;?>%">
+				<span class="sr-only"><?php echo $f_e ;?>% Complete</span><b>Students</b>
 			</div>
 		</div><?php
 		classe('c');

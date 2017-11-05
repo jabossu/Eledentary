@@ -58,7 +58,7 @@ classe('o', 'col-sm-3') ;
 	{
 		$choix[$v->id()] = $v->nom() ; 
 	}
-	$f->liste('patho', translate('select_patho'), $choix, $_POST['patho']) ;
+	$f->liste('patho', translate('select_patho'), $choix, $patho) ;
 	$f->submit( translate('filtrer') ) ;
 	$f->output() ;
 

@@ -160,9 +160,9 @@ class patientsManager
 		// Récupération
 		$q->execute() or die(print_r($q->errorInfo())) ;
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
+		$r = array();
 		foreach ($d as $k => $v)
 		{
-			$r = array();
 			if ( $GLOBALS['_SESSION']['langue'] == 'fr_FR' )
 			{
 				$v['patho'] = $d[$k]['patho_fr_FR'] ;
@@ -171,7 +171,7 @@ class patientsManager
 			{
 				$v['patho'] = $d[$k]['patho_en_EN'] ;
 			}
-			if ( $v['soignant'] == 0 or $showReserved == true )
+			if ( $v['soignant'] == "0" or $showReserved == true )
 			{
 				$r[] = new patient($v) ;
 			}
