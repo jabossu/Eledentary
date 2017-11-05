@@ -153,7 +153,7 @@ class patientsManager
 			ON p.id_pathologie = q.id
 			WHERE	q.id LIKE :pathofilter
 				AND p.id_pathologie <> -1
-			") ;
+			ORDER BY p.id DESC") ;
 		
 		$q->bindValue(':pathofilter' , $patho ) ;
 		
