@@ -7,10 +7,6 @@ function glyph($glyphname, $style=null)
     echo "<span class='glyphicon " . $glyphname . "' ".$s." aria-hidden='true'></span>" ;
 }
 
-if ($successDeco == true)
-{	alerte('loged_out', success);	}
-
-
 classe('o', 'page-header') ;
 display('home', 'h1' ) ;
 classe('c') ;

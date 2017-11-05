@@ -4,6 +4,9 @@ classe('o', 'page-header') ;
 display('page_connexion', 'h1' ) ;
 classe('c') ;
 
+if ($successDeco == true)
+{	alerte('loged_out', "success");	}
+
 switch ($errorType)
 {
 	case '1':

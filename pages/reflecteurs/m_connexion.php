@@ -69,3 +69,6 @@ else
 		}
 	}
 }
+
+// Determine if the user logged out or not ?
+$successDeco = ( ! isset( $_SESSION['profile'] ) AND isset( $_GET['action'] ) AND $_GET['action'] == 'logout' ) ? true : false ;
