@@ -11,6 +11,11 @@ classe('o', 'page-header') ;
 display('home', 'h1' ) ;
 classe('c') ;
 
+if ($loggedin == true) { # if the user just logged in, this will be true
+    alerte( translate( 'logged_in', 'strong'), 'success', '', false) ;
+}
+
+
 // Première ligne ===================================================================
 classe('o', 'row');
 	//----------------------------------------------------------------------------

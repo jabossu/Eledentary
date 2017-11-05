@@ -64,6 +64,14 @@ else
 				{
 					$_SESSION['profile'] = $em->get($id) ;
                     			log_add($id, 'Attempt Log-in', 'success') ;
+                    			
+                    			// Set up the automatic redirection to homepage
+                    			$page="accueil";
+                    			$loggedin = true; # Will enable the loggedin message
+                    			header('Location: /?page=accueil');
+                    			// Load all variables and objects we will need in the homepage
+                    			require( "pages/reflecteurs/m_accueil.php" ) ;
+                    			
 				}
 			}
 		}

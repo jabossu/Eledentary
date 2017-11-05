@@ -20,4 +20,5 @@ if ( isset( $_SESSION['profile'] ) AND isset( $_GET['action'] ) AND $_GET['actio
 */
 
 $accesslevel = 30 ;
+$loggedin = false;
 
