@@ -16,3 +16,26 @@
 	margin-right: 5px ;
 }
 
+.well-tile {
+margin: 9px;
+}
+
+.progress {
+	border: 0px solid black;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: transparent;
+}
+
+.progress .progress-bar {
+	margin: 0px;
+	padding: 0px;
+}
+
+.progress-bar-left {
+	border-radius : 8px 0 0 8px;
+}
+.progress-bar-right {
+	border-radius : 0 8px 8px 0;
+}

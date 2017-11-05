@@ -1,6 +1,6 @@
 <?php
 
-function display($clef, $style='', $var='')
+function display($clef, $style='', $var='', $escape=false)
 {
 	echo translate($clef, $style, $var) ;
 }
@@ -31,7 +31,7 @@ function loadTraduction($lang)
 	return $t ;
 }
 
-function translate($clef, $style='', $var='')
+function translate($clef, $style='', $var='', $escape=true)
 {
 	global $traduction ;
 	
