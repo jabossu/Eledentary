@@ -58,7 +58,7 @@ elseif ( !( isset( $_GET['page'] ) ) and isset( $_SESSION['profile'] ) )
 
 echo '<!--' ;
 
-include('README.txt') ;
+//include('README.txt') ;
 
 echo '-->' . "\n" ;
 ?>

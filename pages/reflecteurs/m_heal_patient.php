@@ -2,6 +2,7 @@
 
 
 $errorType = 0 ;
+$successType = 0;
 /*
 *	1 : Incorrect form
 *	2 : Missing infos

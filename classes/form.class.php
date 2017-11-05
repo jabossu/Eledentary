@@ -107,7 +107,8 @@ class form // ( $cible, $style, $titre='informations' )
 	
 	public function input($id, $label='Input field', $type='text', $value='', $placeholder=null, $prefixe=null, $suffixe=null)
 	{
-		$fake = ($type == fake) ? 'disabled' : '' ;
+		$fake = "" ; $r = "";
+		$fake = ($type == "fake") ? 'disabled' : '' ;
 		if ( !in_array( $type, array('text', 'password', 'email', 'search', 'url', 'number', 'search', 'tel', 'color', 'date' ) ) )
 		{
 			$type = 'text' ;

@@ -162,6 +162,7 @@ class patientsManager
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
 		foreach ($d as $k => $v)
 		{
+			$r = array();
 			if ( $GLOBALS['_SESSION']['langue'] == 'fr_FR' )
 			{
 				$v['patho'] = $d[$k]['patho_fr_FR'] ;
@@ -210,6 +211,7 @@ class patientsManager
 		// Récupération
 		$q->execute() or die(print_r($q->errorInfo())) ;
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
+		$r = array();
 		foreach ($d as $k => $v)
 		{
 			if ( $GLOBALS['_SESSION']['langue'] == 'fr_FR' )
@@ -351,16 +353,19 @@ class patientsManager
 		$q->closeCursor() ;
 	}
 	
-	public function compter( $patho=null )
+	public function compter( $patho=null, $onlyfree=false )
 	{
-		$patho = ( intval($patho) == 0 )		? '%'	: $patho	;
+		$patho = ( intval($patho) == 0 ) ? '%'	: $patho ;
+		$soignant = ( $onlyfree == true ) ? '0'	: '%' ;
+		
 		// Préparation
 		$q = $this->_db->prepare('SELECT
 			COUNT(id) AS n
 			FROM eld_patients
-			WHERE id_pathologie LIKE :patho AND soignant = 0');
+			WHERE id_pathologie LIKE :patho AND soignant LIKE :soignant');
 		// Attribution des valeaurs
 		$q->bindValue(	':patho'	,	$patho) ;
+		$q->bindValue(	':soignant'	,	$soignant) ;
 		// Execution
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		
