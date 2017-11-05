@@ -263,9 +263,9 @@ class elevesManager
 		return ( $d ) ? true : false ;
 	}
 	
-	public function nombre($statut='none')
+	public function nombre(string $statut=null)
 	{
-		if ($statut == 'none')
+		if ($statut == null)
 		{
 			$q = $this->_db->query('SELECT COUNT(id) AS n FROM eld_eleves WHERE statut != "banni"');
 		}

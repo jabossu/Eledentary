@@ -10,6 +10,6 @@ $pm = new patientsManager($bdd) ;
 clean($_POST) ;
 
 
-
-$liste = $pm->liste($_POST['patho'], false) ;
+$patho = ( isset($_POST['patho']) ) ? $_POST['patho'] : null ;
+$liste = $pm->liste($patho, false) ;
 

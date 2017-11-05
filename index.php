@@ -58,6 +58,10 @@ if ( isset( $_GET['page'] ) )
 				$permission = 10 ;
 			}
 		}
+		else {
+		    $permission = 0 ;
+		    $accesslevel = 0 ;
+		}
 		
 		if ( $permission >= $accesslevel or $pageType == 'static' or $pageType == 'rock' )
 		{

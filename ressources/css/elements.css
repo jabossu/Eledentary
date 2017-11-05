@@ -1,3 +1,9 @@
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
 .liste	{
 	padding : 25px 20px 0px 20px ;
 }

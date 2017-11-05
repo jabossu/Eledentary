@@ -2,6 +2,7 @@
 
 
 $errorType = 0 ;
+$successType = 0;
 /*
 *	1 : Incorrect form
 *	2 : Missing infos
@@ -139,7 +140,7 @@ if ( $p->nom() != null
 		$em = new elevesManager($bdd) ;
 		$e = $_SESSION['profile'] ;
 		
-		if ( $e->id == $p->soignant() or $e->statut() == 'administrateur' )
+		if ( $e->id() == $p->soignant() or $e->statut() == 'administrateur' )
 		{
 			$pm->free($p, $e) ; 
 			log_add($_SESSION['profile']->id(), 'Patient freed', $e->nom() . ' ' . $e->prenom() . ' has freed patient #' . $p->id() ) ;
