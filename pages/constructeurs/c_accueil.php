@@ -5,7 +5,9 @@ if ( isset( $_SESSION['profile'] ) AND isset( $_GET['action'] ) AND $_GET['actio
 {
 	unset($_SESSION['profile']);
 	$successDeco= true ;
-	header('Location: /?page=accueil');
+	header('Location: /?page=connexion&action=logout');
+	
+	$page="connexion";
 }
 
 
@@ -17,5 +19,6 @@ if ( isset( $_SESSION['profile'] ) AND isset( $_GET['action'] ) AND $_GET['actio
 *	visitors	= 10
 */
 
-$accesslevel = 10 ;
+$accesslevel = 30 ;
+$loggedin = false;
 
