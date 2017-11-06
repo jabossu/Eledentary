@@ -1,5 +1,5 @@
 <?php
-
+$alertmessage = 0;
 /**
 *	REFLECTEUR DE LA PAGE TRADUCTIOn
 *	

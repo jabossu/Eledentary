@@ -67,9 +67,15 @@ classe('o', 'col-sm-8') ; # start left collumn
 	
 	# third section of patient profile
 	$f->legend( translate('info_contact') );
-		$f->input('telephone', null, 'tel', $p->telephone(), 'ex: 0755000001', '<span class="glyphicon glyphicon-phone-alt"></span>');
-		$f->input('email', null, 'email', $p->email(), 'ex: john@example.com', '<span class="glyphicon glyphicon-envelope"></span>');
-		$f->input('addresse', null, 'text', $p->addresse(), 'ex: 1 strada napoca, 400000 Cluj-Napoca', '<span class="glyphicon glyphicon-home"></span>');
+		if ( null !== $p->soignant() or null == $p->id() ) {
+			$f->input('telephone', null, 'tel', $p->telephone(), 'ex: 0755000001', '<span class="glyphicon glyphicon-phone-alt"></span>');
+			$f->input('email', null, 'email', $p->email(), 'ex: john@example.com', '<span class="glyphicon glyphicon-envelope"></span>');
+			$f->input('addresse', null, 'text', $p->addresse(), 'ex: 1 strada napoca, 400000 Cluj-Napoca', '<span class="glyphicon glyphicon-home"></span>');
+		}
+		else {
+			alerte('patient_datas_hidden', 'warning', 'b');
+			$f->texte( translate('patient_datas_hidden') );
+		}
 		
 	
 	$f->submit( translate('register') ) ; # submit button

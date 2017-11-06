@@ -58,7 +58,7 @@ else
 		</button>
 		<div class="navbar-brand"  >
 			<b>
-			<a href="#menu-toggle" id="menu-toggle" data-toggle="tooltip" title="Show / Hide menu"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu</a>
+			<a href="#menu-toggle" id="menu-toggle" data-toggle="tooltip" title="Show / Hide menu" class="visible-sm visible-xs"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu</a>
 			<span class="hidden-sm hidden-xs"><?php echo $siteconfig->websiteTitle() ; ?><span>
 			</b>
 		</div>
