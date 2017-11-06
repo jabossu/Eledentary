@@ -6,4 +6,6 @@
 # and display them as you wish in the user interface.
 # This file has been added in the gitignoer file
 
-show($siteconfig);
+
+
+envoyerMail($_SESSION['profile'], 'Compte approuvé', 'inscription_confirmed') ;

@@ -1,0 +1,10 @@
+body {
+width: 100% ;
+}
+
+#content	{
+	width: 300px;
+	border: 1px solid grey;
+	border-radius: 15px;
+	
+}

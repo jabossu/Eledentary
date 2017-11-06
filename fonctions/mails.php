@@ -9,7 +9,7 @@ function composerMail($src, $name, $forname, $matricule, $objet, $more=null)
 	
 	
 	$model = str_replace("\n", "<br/>\r\n", $model) ;
-	$model = str_replace("%SRV%",		$_SERVER['SERVER_NAME'].'/',		$model) ;
+	$model = str_replace("%SRV%",		$_SERVER['SERVER_NAME'],		$model) ;
 	$model = str_replace("%NOM%",		$name,		$model) ;
 	$model = str_replace("%PRENOM%",	$forname,		$model) ;
 	$model = str_replace("%MATRI%",		$matricule,		$model) ;
@@ -20,10 +20,11 @@ function composerMail($src, $name, $forname, $matricule, $objet, $more=null)
 	$message = 
 "<html>
 	<head>
+	<style>" . require_once('ressources/css/emails.css') . "</style>
 	<title>" . $objet . "</title>
 	</head>
 <body>
-	<p>" . $model . "</p>
+	<p id='content'>" . $model . "</p>
 </body>
 </html>";
 	
