@@ -91,8 +91,9 @@ class form // ( $cible, $style, $titre='informations' )
 		$this->append('<legend>' . $text . '</legend>', true, 2);
 	}
 	
-	public function texte($label=null, $text='input')
-	{		
+	public function texte($text='input', $label=null)
+	{	
+		$r = "";	
 		if ( isset($label) )
 		{
 			$r  .= $this->label( '', $label ) ;
@@ -211,6 +212,7 @@ class form // ( $cible, $style, $titre='informations' )
 	
 	public function liste($id, $label='Liste', array $choices, $selected=null )
 	{
+		$r = "";
 		if ( isset($label) )
 		{
 			$r  = $this->label( $id, $label ) ;
