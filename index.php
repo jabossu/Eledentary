@@ -10,7 +10,10 @@ require("init.php") ;
 // Ajoute tout le contenu des balises <head>
 require("pages/parts/header.php") ;
 // Le body, avec un container fixe de bootstrap
-echo '<body class="container-fluid" >';
+if ( ! isset($_GET['page']) AND ! isset( $_SESSION['profile'] ) ) {
+	$bodytype = "loginpage" ; }
+else { $bodytype=null;}
+echo '<body class="container-fluid '.$bodytype.'" >';
 
 if ( isset( $_GET['page'] ) )
 {
@@ -88,7 +91,7 @@ if ( isset( $_GET['page'] ) )
 				comment('Page content');
 				echo '<div class="col-md-12 col-sm-12" id="full">';
 					//Display the site logo in page
-					echo "<div class='sitemoto text-right'><span class='moto'>". ucfirst($siteconfig->websiteMoto()) ."</span><img id='logo-corner' alt='The website logo' src='/ressources/images/logo.png'></div>";
+					echo "<div class='sitemoto text-right hidden-sm hidden-xs'><span class='moto'>". ucfirst($siteconfig->websiteMoto()) ."</span><img id='logo-corner' alt='The website logo' src='/ressources/images/logo.png'></div>";
 					
 					echo '<div id="corps">';
 						if ($pageType == 'dynamic')
@@ -146,7 +149,7 @@ else
 	// ========================
 
 	// Connexion area
-	echo '<div class="row loginpage">' ; 
+	echo '<div class="row">' ; 
 	require('pages/statiques/s_loginpage.php');
 	echo "</div>" ;
 		
