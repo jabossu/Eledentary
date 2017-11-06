@@ -8,4 +8,13 @@
 
 
 
-envoyerMail($_SESSION['profile'], 'Compte approuvé', 'inscription_confirmed') ;
+#envoyerMail($_SESSION['profile'], 'Compte approuvé', 'inscription_confirmed') ;
+
+$template = "inscription_confirmed";
+$object = "Eledentary" ;
+$options = array( 'NOM' => 'Bossu', "PRENOM" => "Jacques-Alexandre") ;
+
+//show( scandir("ressources/mails/") );
+
+echo compile_mail($template, $object, $options) ;
+

@@ -47,6 +47,8 @@ if ( !isset($_GET['c']) )
 		if (missing_keys($_POST, $postAttendus) != $postAttendus)
 		{	$errorType = 1 ;	}
 		$state = 1 ;
+		$field_matri = (isset($_POST['matricule'])) ? $_POST['matricule'] : null ;
+		$field_email = (isset($_POST['email'])) ? $_POST['email'] : null ;
 	}
 	// Oui, chaque champ;
 	else
