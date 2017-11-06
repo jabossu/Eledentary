@@ -1,10 +1,38 @@
-body {
-width: 100% ;
+table	{
+	border-collapse: collapse;
+	width: 400px;
+	margin: 20px;
+	border-radius: 17px;
+	
+	background-color: GhostWhite;
 }
 
-#content	{
-	width: 300px;
-	border: 1px solid grey;
-	border-radius: 15px;
+th, td	{
+	padding: 15px;
+	margin: 0px;
+}
+
+th	{
+	text-align : center;
+	background-color: #1a0000;
+	color: #ff8000;  
+	font-size: 4em;
 	
+	border: 1px solid black;
+}
+
+td	{
+	text-align: justify;
+	border: 1px solid black;
+	padding: 10px;
+	padding-top : 13px;
+	padding-bottom: 13px;
+}
+
+#tablefoot	{
+	font-size: 0.7em;
+	font-style: italic;
+	color: DimGrey;
+	border: 0px;
+	text-align: center;
 }

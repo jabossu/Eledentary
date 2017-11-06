@@ -1,0 +1,7 @@
+Hello %PRENOM% %NOM% !
+
+You created a user account on %SRV%, which was approved by our admins. Welcome !
+You can now sign in with the folowing informations :
+<ul><li><b>Matricule :</b> %MATRI%</li><li><b>Password :</b> votre mot de passe</li></ul>
+See You soon !
+-- Team CMC Dentaire
