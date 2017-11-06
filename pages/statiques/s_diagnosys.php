@@ -18,3 +18,4 @@ $options = array( 'NOM' => 'Bossu', "PRENOM" => "Jacques-Alexandre") ;
 
 echo compile_mail($template, $object, $options) ;
 
+

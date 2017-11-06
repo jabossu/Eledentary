@@ -29,6 +29,18 @@ spl_autoload_register('chargerClasse');
 session_start() ;
 
 //================================-
+// Chargement des classes
+//================================-
+if ( isset( $_SESSION['profile'] ) ) 
+{
+	$em = new elevesManager($bdd) ;
+	 $_SESSION['profile'] = $em->get(  $_SESSION['profile']->id() ) ;
+}
+
+$cm = new siteconfigManager($bdd) ;
+$siteconfig = $cm->get() ;
+
+//================================-
 // Inclusion des fonctions
 //================================-
 require_once('ressources/bbcode.php') ;
@@ -40,15 +52,6 @@ require_once('fonctions/debug.php') ;
 require_once('fonctions/datasManip.php') ;
 require_once('fonctions/mails.php') ;
 require_once('fonctions/f_bbcode.php') ;
-
-if ( isset( $_SESSION['profile'] ) ) 
-{
-	$em = new elevesManager($bdd) ;
-	 $_SESSION['profile'] = $em->get(  $_SESSION['profile']->id() ) ;
-}
-
-$cm = new siteconfigManager($bdd) ;
-$siteconfig = $cm->get() ;
 
 //================================-
 // Language Definition

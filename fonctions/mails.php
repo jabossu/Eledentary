@@ -30,13 +30,13 @@ function compile_mail(string $template, string $object, array $options=null, str
 	if ( $list_templates == array() ) {
 		exit(0);
 	}
-
+	global $siteconfig;
 	$message .= "<html><head>\n\t<style>" . $css . "</style>\n\t<title>" . $object . "</title>\n\t</head>\n<body>";
 	
 	$message .= "
 <table>	
 	<tr>
-		<th>".$object."</th>
+		<th>".$siteconfig->websiteTitle()."</th>
 	</tr>";
 	foreach ($list_templates as $language) {
 		
