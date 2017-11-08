@@ -36,6 +36,9 @@ $parametresAttendus = array ( 'motDePasse' ) ;
 $pm = new patientsManager($bdd) ;
 $p = new patient( array() ) ;
 
+$em = new elevesManager( $bdd );
+$e = $_SESSION['profile'];
+
 if ( isset( $_GET['id'] ) and $pm->existe($_GET['id']) )
 {
 	$p = $pm->get($_GET['id']);
@@ -65,6 +68,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		{
 		 	//	Guérir le patient
 		 	$pm->heal($p);
+		 	$em->madeHeal($_SESSION['profile']);
 		 	$mode = "confirmed";
 		 	$successType = 1 ;
 		 	log_add($_SESSION['profile']->id(), 'Patient healed', $_SESSION['profile']->nom() . ' ' . $_SESSION['profile']->prenom() . ' has cured patient #' . $p->id() );

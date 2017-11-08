@@ -18,9 +18,9 @@ class elevesManager
 	
 	public function genId()
 	{
-		do {
-			$id = uniqid();	    
-		} while ($this->idExiste($id));
+		do {	$id = uniqid();	  } 
+		while ($this->idExiste($id));
+		
 		return $id;
 	}
 	
@@ -141,8 +141,20 @@ class elevesManager
 		$q->bindValue(	':soins'	,	$eleve->soins()			);
 		
 		// Execution
-		$q->execute()  or die( print_r( $req->errorInfo() ) ) ;
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 	}
+	
+	public function madeHeal($eleve)
+	{
+		$q = $this->_db->prepare("UPDATE eld_eleves SET soins = IFNULL(soins, 0) + 1 WHERE id = :id" );
+	
+		// Attribution des valeurs
+		$q->bindValue(	':id'		,	$eleve->id()			);
+		
+		// Execution
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
+	}
+	
 	public function updatePassword($eleve)
 	{
 		// Préparation
