@@ -32,7 +32,7 @@ classe('o', 'col-sm-9');
 			foreach ($liste as $p)
 			{
 				echo "<tr> \n" ;
-				echo '<td><b>' . $p->id() . ' ; </b><i>' . $p->cnp() . '</i></td>' ;
+				echo '<td><b>' . $p->cnp() . ' ; </b></td>' ;
 				echo '<td><b>' . '<a href="?page=profile_patient&id=' . $p->id() . '">' . substr($p->prenom(), 0, 1) . '. ' . substr($p->nom(), 0, 2) . '.' . '</b></td>' ;
 				echo '<td>' . $p->patho() . ' (' . $p->annees() . ') ' . '</td>' ;
 				echo '<td>' . $p->details() . '</td>' ;
@@ -58,7 +58,7 @@ classe('o', 'col-sm-3') ;
 	{
 		$choix[$v->id()] = $v->nom() ; 
 	}
-	$f->liste('patho', translate('select_patho'), $choix, $_POST['patho']) ;
+	$f->liste('patho', translate('select_patho'), $choix, $patho) ;
 	$f->submit( translate('filtrer') ) ;
 	$f->output() ;
 

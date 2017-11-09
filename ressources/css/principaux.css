@@ -6,23 +6,17 @@ html, body {
 	
 }
 .page-content-wrapper	{
-	padding-top: 60px ;
-	word-wrap: break-word;
+	padding-top: 55px ;
 }
 
-
-
 .loginpage	{
-	background-image:url(/ressources/images/background-login.jpg);
+	background-image:url("/ressources/images/background-login.jpg");
 	background-position: center center ;
 	background-repeat: no-repeat;
-	background-color:#729fcf;
+	background-color: #00435e;
 	height:100%;
 	position:relative;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+	background-size: cover ;
 }
 
 .loginbody .row	{

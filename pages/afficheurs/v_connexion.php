@@ -4,6 +4,9 @@ classe('o', 'page-header') ;
 display('page_connexion', 'h1' ) ;
 classe('c') ;
 
+if ($successDeco == true)
+{	alerte('loged_out', "success");	}
+
 switch ($errorType)
 {
 	case '1':
@@ -46,7 +49,6 @@ if ( !isset( $_SESSION['profile'] ) )
 // Sinon, on affiche ses détails de connexion.
 else
 {
-	alerte( translate( 'logged_in', 'strong'), 'success', '', false) ;
 	classe('o', 'col-sm-10 col-sm-push-1') ;
 	echo '<ul class="liste-group">' ;
 	echo '<li class="list-group-item">' . translate('nom', 'b') . ' : ' . $_SESSION['profile']->nom() . '</li>' ;

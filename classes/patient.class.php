@@ -116,7 +116,7 @@ class patient
 	public function setEmail($v) 			{ $this->_email = 		(preg_match('#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#', $v) ) ? $v : null; }
 	public function setTelephone($v) 		{ $this->_telephone	=	(preg_match('#^(0|\+40)[-. ]?7[0-9]{2}([-. ]?[0-9]{3}){2}$#', $v) ) ? $v : null; }
 	public function setAddresse($v) 		{ $this->_addresse = ( $v != '---' )		? $v	: null	; ; }
-	public function setSoignant($v) 		{ $this->_soignant = 	( intval($v) >= 0 )		? $v	: null	; }
+	public function setSoignant($v) 		{ $this->_soignant = 	( $v != 0 )		? $v	: null	; }
 	
 	
 	public function hydrate(array $donnees)

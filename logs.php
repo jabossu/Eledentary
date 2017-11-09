@@ -6,19 +6,14 @@ include("config.php") ; // contient les parametres de base du site, comme ceux d
 include("init.php") ;	// contient les fonctions à appeller avant tout les reste, notamment la $bbd et les sessions.
 $lm = new logManager($bdd) ;
 
+$day = ( isset($_POST['day']) ) ? $_POST['day'] : null ;
+
 // ============= Ajout des parties de pages ===========
 // Ajoute tout le contenu des balises <head>
 include("pages/statiques/header.php") ;
 // Le body, avec un container fixe de bootstrap
 echo '<body class="container" >';
-// La belle bannière...
-echo '<div class="row">' ;
-	classe('o', "col-sm-12");
-	include("pages/statiques/banner.php") ;
-	classe('c') ;
-echo '</div>';
-echo "\n";
-
+echo "<br/>" ;
 if ( !isset($_SESSION['profile']) or $_SESSION['profile']->isAdmin() == false )
 {
 	classe('o', 'row') ;
@@ -76,7 +71,7 @@ classe('o', "row") ;
 				}
 			$f->liste( 'year', null, $y, $_POST['year'] ) ;
 			$f->liste( 'month', null, $monthList, $_POST['month'] ) ;
-    		$f->liste( 'day', null, $days, $_POST['day'] ) ;
+    		$f->liste( 'day', null, $days, $day ) ;
 			$f->submit('Filter', 'warning') ;
 			$f->output() ;
 			classe('c') ;
@@ -85,7 +80,7 @@ classe('o', "row") ;
 		echo '<pre>' ;
 		
 		$vA = array('year', 'month', 'day') ;
-		if ( missing_keys($_POST, $vA) AND missing_keys( $_POST, $vA) != $VA OR ( contains_null($_POST) ) )
+		if ( missing_keys($_POST, $vA) AND missing_keys( $_POST, $vA) != $vA OR ( contains_null($_POST) ) )
 		{
 			$liste = $lm->getAll() ;
 		}

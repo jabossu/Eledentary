@@ -58,15 +58,15 @@ else
 		</button>
 		<div class="navbar-brand"  >
 			<b>
-			<a href="#menu-toggle" id="menu-toggle" data-toggle="tooltip" title="Show / Hide menu"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
-			<?php echo $siteconfig->websiteTitle() ; ?>
+			<a href="#menu-toggle" id="menu-toggle" data-toggle="tooltip" title="Show / Hide menu" class="visible-sm visible-xs"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu</a>
+			<span class="hidden-sm hidden-xs"><?php echo $siteconfig->websiteTitle() ; ?><span>
 			</b>
 		</div>
 	</div>
 
 	<div class="collapse navbar-collapse" id="bs-navbar-collapse">
 		
-		<ul class="nav navbar-nav navbar-left">
+		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
 			<?php
 	
 			if ( isset($_SESSION['profile']) and $_SESSION['profile']->statut() == 'administrateur' )
@@ -81,6 +81,21 @@ else
 	
 			<?php }	?>
 		</ul>
+		<div class="nav navbar-nav navbar-left visible-sm visible-xs">
+			<?php
+	
+			if ( isset($_SESSION['profile']) and $_SESSION['profile']->statut() == 'administrateur' )
+			{?>
+				<center>
+				<button href="/?page=viewmessages" type="button" data-toggle="tooltip" data-placement="bottom" class="btn btn-default" title="<?php display('admin_messages') ;?>"><span class="glyphicon glyphicon-envelope"></span> <span class="badge"><?php echo $mm->nombre('nonlu') ; ?></span></button>
+				<?php if( $siteconfig->bypassApproval() == 'off' ) {?>
+				<button href="/?page=eleves&year=0&role=nouveau" type="button" data-toggle="tooltip" data-placement="bottom" class="btn btn-default" title="<?php echo $str_eleves  ;?>"><span class="glyphicon glyphicon-user"></span> <span class="badge"><?php echo $em->nombre('nouveau') ; ?></span></button>
+				<?php }?>
+				<button href="/logs.php" type="button" data-toggle="tooltip" data-placement="bottom" class="btn btn-default" title="<?php display('go_logs') ;?>"><span class="glyphicon glyphicon-eye-open"></span></button>
+				</center>
+	
+			<?php }	?>
+		</div>
 	
 		<ul class="nav navbar-nav navbar-right">
 			

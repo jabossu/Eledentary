@@ -45,9 +45,10 @@ switch ($state)
 
 // Demander l'identification du compte
 case '1':
+	
 	$f = new form() ;
-	$f->input('matricule', null, 'text', $_POST['matricule'], '0000', 'Matricule') ;
-	$f->input('email', null, 'email', $_POST['email'], 'john@example.com', 'Email') ;
+	$f->input('matricule', null, 'text', $field_matri, '0000', 'Matricule') ;
+	$f->input('email', null, 'email', $field_email, 'john@example.com', 'Email') ;
 	$f->submit('ok') ;
 	$f->output();
 	break;

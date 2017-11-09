@@ -15,11 +15,19 @@ class patientsManager
 	// Fonctions
 	//====================
 	
+	public function genId()
+	{
+		do {
+			$id = uniqid();	    
+		} while ($this->existe($id));
+		return $id;
+	}
+	
 	function add(patient $p)
 	{
 		// Preparation
 		$q = $this->_db->prepare("INSERT INTO eld_patients
-		SET	id = '',
+		SET	id = :id,
 			nom = :nom,
 			prenom = :prenom,
 			cnp = :cnp,
@@ -32,6 +40,7 @@ class patientsManager
 			soignant = 0") ;
 		
 		// Attribution des valeurs
+		$q->bindValue(':id', $this->genId() );
 		$q->bindValue(':nom', $p->nom());
 		$q->bindValue(':prenom', $p->prenom());
 		$q->bindValue(':cnp', $p->cnp());
@@ -151,6 +160,7 @@ class patientsManager
 		// Récupération
 		$q->execute() or die(print_r($q->errorInfo())) ;
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
+		$r = array();
 		foreach ($d as $k => $v)
 		{
 			if ( $GLOBALS['_SESSION']['langue'] == 'fr_FR' )
@@ -161,7 +171,7 @@ class patientsManager
 			{
 				$v['patho'] = $d[$k]['patho_en_EN'] ;
 			}
-			if ( $v['soignant'] == 0 or $showReserved == true )
+			if ( $v['soignant'] == "0" or $showReserved == true )
 			{
 				$r[] = new patient($v) ;
 			}
@@ -201,6 +211,7 @@ class patientsManager
 		// Récupération
 		$q->execute() or die(print_r($q->errorInfo())) ;
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
+		$r = array();
 		foreach ($d as $k => $v)
 		{
 			if ( $GLOBALS['_SESSION']['langue'] == 'fr_FR' )
@@ -323,16 +334,38 @@ class patientsManager
 		$q->closeCursor() ;
 	}
 	
-	public function compter( $patho=null )
+	function getSoignant($id)
 	{
-		$patho = ( intval($patho) == 0 )		? '%'	: $patho	;
+		/*if ( $this->existe($id) == false )
+		{ exit 1 }*/
+		
+		// Preparation
+		$q = $this->_db->prepare("SELECT soignant FROM eld_patients	WHERE	id = :id") ;
+		// Attribution des valeurs
+		$q->bindValue(':id', $id);
+		
+		// Execution
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
+		
+		// Récupération
+		$d = $q->fetch(PDO::FETCH_ASSOC) ;
+		return $d['soignant'] ;
+		$q->closeCursor() ;
+	}
+	
+	public function compter( $patho=null, $onlyfree=false )
+	{
+		$patho = ( intval($patho) == 0 ) ? '%'	: $patho ;
+		$soignant = ( $onlyfree == true ) ? '0'	: '%' ;
+		
 		// Préparation
 		$q = $this->_db->prepare('SELECT
 			COUNT(id) AS n
 			FROM eld_patients
-			WHERE id_pathologie LIKE :patho AND soignant = 0');
+			WHERE id_pathologie LIKE :patho AND soignant LIKE :soignant');
 		// Attribution des valeaurs
 		$q->bindValue(	':patho'	,	$patho) ;
+		$q->bindValue(	':soignant'	,	$soignant) ;
 		// Execution
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		

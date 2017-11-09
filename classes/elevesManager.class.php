@@ -16,6 +16,14 @@ class elevesManager
 	//			Fonctions
 	// ===================================
 	
+	public function genId()
+	{
+		do {	$id = uniqid();	  } 
+		while ($this->idExiste($id));
+		
+		return $id;
+	}
+	
 	public function add(eleve $eleve)
 	{
 		// Preparation
@@ -23,14 +31,14 @@ class elevesManager
 			id = :id, nom = :nom, prenom = :prenom, matricule = :matricule, motDepasse = :motDepasse, annee = :annee, email = :email, telephone = :telephone, statut = :statut, soins = :soins") ;
 		
 		// Attribution des valeurs
-		$q->bindValue(	':id'		,	''						);
+		$q->bindValue(	':id'		,	$this->genId()			);
 		$q->bindValue(	':nom'		,	$eleve->nom()			);
 		$q->bindValue(	':prenom'	,	$eleve->prenom()		);
-		$q->bindValue(	':motDepasse',	$eleve->motDePasse()	);
-		$q->bindValue(	':matricule',	$eleve->matricule()		);
+		$q->bindValue(	':motDepasse'	,	$eleve->motDePasse()	);
+		$q->bindValue(	':matricule'	,	$eleve->matricule()		);
 		$q->bindValue(	':annee'	,	$eleve->annee()			);
 		$q->bindValue(	':email'	,	$eleve->email()			);
-		$q->bindValue(	':telephone',	$eleve->telephone()		);
+		$q->bindValue(	':telephone'	,	$eleve->telephone()		);
 		$q->bindValue(	':statut'	,	'nouveau'		);
 		$q->bindValue(	':soins'	,	0			);
 		
@@ -133,8 +141,20 @@ class elevesManager
 		$q->bindValue(	':soins'	,	$eleve->soins()			);
 		
 		// Execution
-		$q->execute()  or die( print_r( $req->errorInfo() ) ) ;
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 	}
+	
+	public function madeHeal($eleve)
+	{
+		$q = $this->_db->prepare("UPDATE eld_eleves SET soins = IFNULL(soins, 0) + 1 WHERE id = :id" );
+	
+		// Attribution des valeurs
+		$q->bindValue(	':id'		,	$eleve->id()			);
+		
+		// Execution
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
+	}
+	
 	public function updatePassword($eleve)
 	{
 		// Préparation
@@ -255,9 +275,9 @@ class elevesManager
 		return ( $d ) ? true : false ;
 	}
 	
-	public function nombre($statut='none')
+	public function nombre(string $statut=null)
 	{
-		if ($statut == 'none')
+		if ($statut == null)
 		{
 			$q = $this->_db->query('SELECT COUNT(id) AS n FROM eld_eleves WHERE statut != "banni"');
 		}

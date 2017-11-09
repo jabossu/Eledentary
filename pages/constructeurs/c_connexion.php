@@ -8,5 +8,6 @@
 *	visitors	= 10
 */
 
+$successDeco = false ; // Will be set later in the reflector
 
 $accesslevel =  0 ;

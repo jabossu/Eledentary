@@ -29,10 +29,12 @@ function my_encrypt( string $input )
 # I do this to make it easier later on to update password hashing as security
 # standards evolve.
 {
-	$salt = openssl_random_pseudo_bytes( 22 ); #Let us have a salt !
-	$options = array( 'cost' => 11, 'salt' => $salt, );
+	/*	Setting the salt manually is now deprecated
 	
-	return password_hash( $input, PASSWORD_BCRYPT, $options);
+	$salt = openssl_random_pseudo_bytes( 22 ); #Let us have a salt !
+	$options = array( 'cost' => 11, 'salt' => $salt, );*/
+	
+	return password_hash( $input, PASSWORD_DEFAULT);
 }
 
 function my_decrypt( $password, $hash)
