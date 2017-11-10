@@ -91,7 +91,8 @@ if ( isset( $_GET['page'] ) )
 				comment('Page content');
 				echo '<div class="col-md-12 col-sm-12" id="full">';
 					//Display the site logo in page
-					echo "<div class='sitemoto text-right hidden-sm hidden-xs'><span class='moto'>". ucfirst($siteconfig->websiteMoto()) ."</span><img id='logo-corner' alt='The website logo' src='/ressources/images/logo.png'></div>";
+					/*echo "<div class='sitemoto text-right hidden-sm hidden-xs'><span class='moto'>". ucfirst($siteconfig->websiteMoto()) ."</span><img id='logo-corner' alt='The website logo' src='/ressources/images/logo.png'></div>";
+					*/
 					
 					echo '<div id="corps">';
 						if ($pageType == 'dynamic')

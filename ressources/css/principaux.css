@@ -3,7 +3,7 @@ html, body {
 	width:100%;
 	padding:0px;
 	margin: 0px;
-	
+	background: White;
 }
 .page-content-wrapper	{
 	padding-top: 55px ;
@@ -146,15 +146,14 @@ html, body {
 }
 
 
-#footer, #banniere,	{
-	background-color : white ;
-}
-
 #corps	{
-	background-color : transparent ;
-	margin : 10px ;
+	background-color : white ;
+	margin : 0px ;
 	margin-top: -10px ;
-	border-radius : 10px ;
+	border-radius : 7px ;
+	height: 100%;
+	box-shadow: 0px 0px 5px lightgrey inset;
+	padding: 50px;
 		
 }
 #logo-corner	{
@@ -174,7 +173,7 @@ html, body {
 }
 
 .userbar	{
-	background-color : white ;
+	background-color : White ;
 	box-shadow: 0px 0px 5px black;
 	width: 100%;
 	margin-left: 0px ;
@@ -190,17 +189,23 @@ html, body {
 	background-position : center top ;
 	background-attachment : fixed ;
 	background-repeat : repeat ;*/
-	background-color: white ;
+	background-color: transparent ;
 	
 	padding : 40px;
 	min-height: 100vh;
 }
 
 #footer	{
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+	font-size: 0.8em;
 	text-align: center;
 	padding: 5px;
-	margin-top : 10px ;
-	margin-bottom : 20px ;
+	margin-top : 30px ;
+	margin-bottom : -30px ;
+	color: SlateGrey;
+	border: Silver 1px solid;
+	border-radius : 5px;
+	background: GhostWhite;
 }
 
 #banniere	{
