@@ -4,11 +4,13 @@ class chatsManager
 {
 	//	internal variables
 	private $_db ;
+	private $_table ;
 	
 	//	Constructor
 	function __construct ($db)
 	{
 		$this->_db = $db;
+		$this->_table = "dentchat" ;
 	}
 	
 
@@ -19,8 +21,9 @@ class chatsManager
 	{
 		// Preparation
 		$q = $this->_db->prepare("
-			INSERT INTO eld_dentchat
+			INSERT INTO :tablename
 			SET id = '', timestamp = CONVERT_TZ( NOW() ,'+00:00','+01:00') , userid = :userid, message = :message") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':userid', $chat->userid());
@@ -35,7 +38,7 @@ class chatsManager
 	function get()
 	{
 		// Preparation
-		$q = $this->_db->query("
+		$q = $this->_db->prepare("
 			SELECT
 				d.userid AS userid,
 				DATE_FORMAT(d.timestamp, '%H:%i') AS time,
@@ -43,11 +46,17 @@ class chatsManager
 				CONCAT( LEFT(e.prenom, 1),  '.', SUBSTR(e.nom, 1, 7) ) AS username,
 				d.message AS message,
 				e.annee AS anneeuser
-			FROM eld_dentchat AS d
-			LEFT JOIN eld_eleves AS e
+			FROM :tablename AS d
+			LEFT JOIN :tablename2 AS e
 			ON e.id = d.userid
 			ORDER BY d.timestamp DESC
 			LIMIT 0, 20") or print_r($this->_db->errorInfo());
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->bindValue( ':tablename2', $this->_db->prefix() . "eleves") ;
+		
+		// Execution
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
 		
 		// Récupération
 		//$d = array_reverse( $q->fetchAll(PDO::FETCH_ASSOC) ) ;

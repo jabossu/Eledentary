@@ -18,7 +18,9 @@ class articlesManager
 	// a l'ID dans la base de donnees
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT * FROM eld_articles WHERE id = :id');
+		$q = $this->_db->prepare('SELECT * FROM :tablename WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . "articles") ;
+		
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$id) ;
 		// Execution
@@ -34,7 +36,9 @@ class articlesManager
 	{
 		$id = (int) $id ;
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_articles WHERE id = :id');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . "articles") ;
+		
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$id) ;
 		// Execution
@@ -50,8 +54,10 @@ class articlesManager
 	// Enregistre l'article en parametre dans la base de donnees
 	{
 		// Préparation
-		$q = $this->_db->prepare('INSERT INTO eld_articles SET
+		$q = $this->_db->prepare('INSERT INTO :tablename SET
 			id = "", date = NOW(), fr_titre = :fr_titre, fr_contenu = :fr_contenu, en_titre = :en_titre, en_contenu = :en_contenu');
+		$q->bindValue( ':tablename', $this->_db->prefix() . "articles") ;
+
 		// Attribution des valeurs
 		$q->bindValue(	':fr_titre'		,	(string) $post->titre('fr_FR')		) ;
 		$q->bindValue(	':fr_contenu'	,	(string) $post->contenu('fr_FR')		) ;
@@ -66,7 +72,9 @@ class articlesManager
 	// Effface l'article passe en parametres de la base de donnees
 	{
 		// Préparation
-		$q = $this->_db->prepare('DELETE FROM eld_articles WHERE id = :id');
+		$q = $this->_db->prepare('DELETE FROM :tablename WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . "articles") ;
+		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	 $post->id()		) ;
 		// Execution
@@ -77,8 +85,10 @@ class articlesManager
 	// Met a jours l'article dans la base de donnees d'apres celui passe en parametre.
 	{
 		// Préparation
-		$q = $this->_db->prepare('UPDATE eld_articles SET
+		$q = $this->_db->prepare('UPDATE :tablename SET
 		fr_titre = :fr_titre, fr_contenu = :fr_contenu, en_titre = :en_titre, en_contenu = :en_contenu WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . "articles") ;
+		
 		// Attribution des valeurs
 		$q->bindValue(	':id'			,	(int) $post->id()		) ;
 		$q->bindValue(	':fr_titre'		,	(string) $post->titre('fr_FR')		) ;
@@ -96,7 +106,9 @@ class articlesManager
 	{
 		$nombre = (int) $nombre ;
 		// Préparation
-		$q = $this->_db->query('SELECT * FROM eld_articles ORDER BY date DESC, id DESC LIMIT 0, 3');
+		$q = $this->_db->prepare('SELECT * FROM :tablename ORDER BY date DESC, id DESC LIMIT 0, 3');
+		$q->bindValue( ':tablename', $this->_db->prefix() . "articles") ;
+		
 		// Attribution des valeurs
 		//$q->bindValue(	':nombre'	,	$nombre) ;
 		// Execution
@@ -115,7 +127,10 @@ class articlesManager
 	// renvoie tout les articles de la base de donnees
 	{
 		// Préparation
-		$q = $this->_db->query('SELECT * FROM eld_articles ORDER BY date DESC, id DESC') or die( print_r( $q->errorInfo() ) ) ;
+		$q = $this->_db->prepare('SELECT * FROM :tablename ORDER BY date DESC, id DESC') or die( print_r( $q->errorInfo() ) ) ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . "articles") ;
+		
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
 		foreach ($d as $key => $value)

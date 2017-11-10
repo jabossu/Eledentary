@@ -19,8 +19,10 @@ class anamnesesManager
 	{
 		// Preparation
 		$q = $this->_db->prepare("
-			INSERT INTO eld_anamnese
+			INSERT INTO :tablename
 			SET id = '', id_patient = :patientid , texte = :texte, id_patho = :id_patho") ;
+		
+		$q->bindvalues(':tablename', $this->_db->prefix() . "anamnese");
 		
 		// Attribution des valeurs
 		$q->bindValue(':patientid', $a->id_patient());
@@ -36,10 +38,12 @@ class anamnesesManager
 	function get()
 	{
 		// Preparation
-		$q = $this->_db->query("
+		$q = $this->_db->prepare("
 			SELECT		id_patient, texte, id_patho
-			FROM eld_anamneses
+			FROM :tablename
 			WHERE id = :id") or print_r($this->_db->errorInfo());
+		
+		$q->bindvalues(':tablename', $this->_db->prefix() . "anamnese");
 		
 		// Récupération
 		//$d = array_reverse( $q->fetchAll(PDO::FETCH_ASSOC) ) ;
@@ -52,7 +56,9 @@ class anamnesesManager
 	function remove($id)
 	{
 		// Preparation
-		$q = $this->_db->prepare("DELETE FROM eld_anamneses	WHERE	id = :id") ;
+		$q = $this->_db->prepare("DELETE FROM :tablename	WHERE	id = :id") ;
+		
+		$q->bindvalues(':tablename', $this->_db->prefix() . "anamnese");
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
@@ -67,7 +73,8 @@ class anamnesesManager
 	public function existe($id)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_anamneses WHERE id = :id');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE id = :id');
+		$q->bindvalues(':tablename', $this->_db->prefix() . "anamnese");
 		// Attribution des valeurs
 		$q->bindValue(	':id'	,	$id) ;
 		// Execution

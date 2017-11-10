@@ -10,11 +10,13 @@ class siteconfigManager
 {
 	//	internal variables
 	private $_db ;
+	private	$_table;
 	
 	//	Constructor
 	function __construct ($db)
 	{
 		$this->_db = $db;
+		$this->table = 'siteconfig' ;
 	}
 	
 	function merge( siteconfig $old, siteconfig $new )
@@ -51,8 +53,12 @@ class siteconfigManager
 	
 	function get()
 	{
-		$q = $this->_db->query("SELECT * FROM eld_siteconfig WHERE id = 1") 
+		$q = $this->_db->prepare("SELECT * FROM :tablename WHERE id = 1") 
 			or print_r($this->_db->errorInfo());
+			
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		$d = $q->fetchALL(PDO::FETCH_ASSOC) ;
 		
 		return new siteconfig( $d[0] ) ;
@@ -63,7 +69,7 @@ class siteconfigManager
 	function update( siteconfig $s )
 	{
 		$q = $this->_db->prepare("
-			UPDATE eld_siteconfig
+			UPDATE :tablenamesiteconfig
 			SET	websiteTitle	= :title,
 				websiteMoto	= :moto,
 				websiteFooter	= :footer,

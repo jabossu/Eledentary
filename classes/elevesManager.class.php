@@ -5,11 +5,13 @@ class elevesManager
 	
 	//	internal variables
 	private $_db ;
+	private $_table ;
 	
 	//	Constructor
 	public function __construct ($db)
 	{
 		$this->_db = $db;
+		$this->_table = "eleves" ;
 	}
 	
 	// ===================================
@@ -27,8 +29,10 @@ class elevesManager
 	public function add(eleve $eleve)
 	{
 		// Preparation
-		$q = $this->_db->prepare("INSERT INTO eld_eleves SET
+		$q = $this->_db->prepare("INSERT INTO :tablename SET
 			id = :id, nom = :nom, prenom = :prenom, matricule = :matricule, motDepasse = :motDepasse, annee = :annee, email = :email, telephone = :telephone, statut = :statut, soins = :soins") ;
+			
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	$this->genId()			);
@@ -49,7 +53,9 @@ class elevesManager
 	function delete(eleve $e)
 	{
 		// Preparation
-		$q = $this->_db->prepare("DELETE FROM eld_eleves	WHERE	id = :id") ;
+		$q = $this->_db->prepare("DELETE FROM :tablename	WHERE	id = :id") ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $e->id() );
@@ -64,7 +70,9 @@ class elevesManager
 	public function hasPatients(eleve $e)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_patients WHERE soignant = :id');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE soignant = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . "patients") ;
+		
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$e->id() ) ;
 		// Execution
@@ -72,16 +80,19 @@ class elevesManager
 		
 		// Récupération
 		$d = $q->fetch(PDO::FETCH_ASSOC) ;
-		return ( $d == null ) ? false : true ;
+		return ( $d == array() ) ? false : true ;
 	}
 	
 	public function hasReserved(eleve $e)
 	{
 		// Préparation
 		$q = $this->_db->prepare('
-			SELECT id FROM eld_patients 
+			SELECT id FROM :tablename 
 			WHERE soignant = :id
 			AND id_pathologie <> -1');
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . "patients") ;
+		
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$e->id() ) ;
 		// Execution
@@ -96,7 +107,10 @@ class elevesManager
 	public function findPatient(eleve $e)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_patients WHERE soignant = :id');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE soignant = :id');
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . "patients") ;
+		
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$e->id() ) ;
 		// Execution
@@ -110,7 +124,10 @@ class elevesManager
 	public function get($id)
 	{
 		// Préparation
-		$q = $this->_db->prepare("SELECT * FROM eld_eleves WHERE id = :id");
+		$q = $this->_db->prepare("SELECT * FROM :tablename WHERE id = :id");
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		//Attribution des valeurs
 		$q->bindValue(	':id'		,	$id		);
 		// Execution
@@ -125,9 +142,10 @@ class elevesManager
 	public function update($eleve)
 	{
 		// Préparation
-		$q = $this->_db->prepare("UPDATE eld_eleves SET
+		$q = $this->_db->prepare("UPDATE :tablename SET
 			nom = :nom, prenom = :prenom, matricule = :matricule, annee = :annee, email = :email, telephone = :telephone, statut = :statut, soins = :soins
 			WHERE id = :id" ) ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	$eleve->id()			);
@@ -146,8 +164,9 @@ class elevesManager
 	
 	public function madeHeal($eleve)
 	{
-		$q = $this->_db->prepare("UPDATE eld_eleves SET soins = IFNULL(soins, 0) + 1 WHERE id = :id" );
-	
+		$q = $this->_db->prepare("UPDATE :tablename SET soins = IFNULL(soins, 0) + 1 WHERE id = :id" );
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	$eleve->id()			);
 		
@@ -155,12 +174,13 @@ class elevesManager
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 	}
 	
-	public function updatePassword($eleve)
+	public function updatePassword(eleve $eleve)
 	{
 		// Préparation
-		$q = $this->_db->prepare("UPDATE eld_eleves SET
+		$q = $this->_db->prepare("UPDATE :tablename SET
 			motDePasse = :password
 			WHERE id = :id" ) ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	$eleve->id()			);
@@ -169,28 +189,34 @@ class elevesManager
 		// Execution
 		$q->execute()  or die( print_r( $req->errorInfo() ) ) ;
 	}
-	public function approve($eleve)
+	public function approve(eleve $eleve)
 	{
 		// Préparation
-		$q = $this->_db->prepare("UPDATE eld_eleves SET statut = 'approuve' WHERE id = :id" ) ;
+		$q = $this->_db->prepare("UPDATE :tablename SET statut = 'approuve' WHERE id = :id" ) ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	$eleve->id()			);		
 		// Execution
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 	}
-	public function ban($eleve)
+	public function ban(eleve $eleve)
 	{
 		// Préparation
-		$q = $this->_db->prepare("UPDATE eld_eleves SET statut = 'banni' WHERE id = :id" ) ;
+		$q = $this->_db->prepare("UPDATE :tablename SET statut = 'banni' WHERE id = :id" ) ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	$eleve->id()			);		
 		// Execution
 		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 	}
-	public function chadmin($eleve)
+	public function chadmin(eleve $eleve)
 	{
 		// Préparation
-		$q = $this->_db->prepare("UPDATE eld_eleves SET statut = 'administrateur' WHERE id = :id" ) ;
+		$q = $this->_db->prepare("UPDATE :tablename SET statut = 'administrateur' WHERE id = :id" ) ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		// Attribution des valeurs
 		$q->bindValue(	':id'		,	$eleve->id()			);		
 		// Execution
@@ -202,29 +228,32 @@ class elevesManager
 		// Préparation
 		if ( $value == 0 and $statut == 'all' )
 		{
-			$q = $this->_db->query("SELECT * FROM eld_eleves WHERE statut != 'banni' ORDER BY nom");
+			$q = $this->_db->prepare("SELECT * FROM :tablename WHERE statut != 'banni' ORDER BY nom");
 		}
 		else
 		{
 			if ($value != 0 and $statut == 'all')
 			{
-				$q = $this->_db->prepare("SELECT * FROM eld_eleves WHERE annee = :value AND statut != 'banni' ORDER BY nom");
+				$q = $this->_db->prepare("SELECT * FROM :tablename WHERE annee = :value AND statut != 'banni' ORDER BY nom");
 				$q->bindValue(	':value'		,	$value		);
 			}
 			elseif ($value == 0 and $statut != 'all')
 			{
-				$q = $this->_db->prepare("SELECT * FROM eld_eleves WHERE statut = :statut ORDER BY nom");
+				$q = $this->_db->prepare("SELECT * FROM :tablename WHERE statut = :statut ORDER BY nom");
 				$q->bindValue(	':statut'		,	$statut		);
 			}
 			else
 			{
-				$q = $this->_db->prepare("SELECT * FROM eld_eleves WHERE annee = :value AND statut = :statut ORDER BY nom");
+				$q = $this->_db->prepare("SELECT * FROM :tablename WHERE annee = :value AND statut = :statut ORDER BY nom");
 				$q->bindValue(	':value'		,	$value		);
 				$q->bindValue(	':statut'		,	$statut		);
 			}
-			$q->execute()  or die( print_r( $req->errorInfo() ) ) ;
+
 		}
-			
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->execute()  or die( print_r( $req->errorInfo() ) ) ;	
+		
 		// Récupération
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;
 		foreach ($d as $key => $value)
@@ -237,7 +266,9 @@ class elevesManager
 	public function matriculeExiste($matri)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_eleves WHERE matricule = :matricule');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE matricule = :matricule');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		// Attribution des valeaurs
 		$q->bindValue(	':matricule'	,	$matri) ;
 		// Execution
@@ -251,7 +282,8 @@ class elevesManager
 	public function getId($matri)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_eleves WHERE matricule = :matricule');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE matricule = :matricule');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeaurs
 		$q->bindValue(	':matricule'	,	$matri) ;
 		// Execution
@@ -264,7 +296,9 @@ class elevesManager
 	public function idExiste($id)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_eleves WHERE id = :id');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$id) ;
 		// Execution
@@ -279,17 +313,19 @@ class elevesManager
 	{
 		if ($statut == null)
 		{
-			$q = $this->_db->query('SELECT COUNT(id) AS n FROM eld_eleves WHERE statut != "banni"');
+			$q = $this->_db->prepare('SELECT COUNT(id) AS n FROM :tablename WHERE statut != "banni"');
 		}
 		else
 		{
-			// Préparation
-			$q = $this->_db->prepare('SELECT COUNT(id) AS n FROM eld_eleves WHERE statut = :statut');
-			// Attribution des valeaurs
-			$q->bindValue(	':statut'	,	$statut) ;
-			// Execution
-			$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
+			$q = $this->_db->prepare('SELECT COUNT(id) AS n FROM :tablenameeleves WHERE statut = :statut');
 		}
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
+		// Attribution des valeaurs
+		$q->bindValue(	':statut'	,	$statut) ;
+		// Execution
+		$q->execute()  or die( print_r( $q->errorInfo() ) ) ;
 		
 		// Récupération
 		$d = $q->fetch(PDO::FETCH_ASSOC) ;

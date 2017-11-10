@@ -4,11 +4,13 @@ class messagesManager
 {
 	//	internal variables
 	private $_db ;
-	
+	private $_table ;
+		
 	//	Constructor
 	function __construct ($db)
 	{
 		$this->_db = $db;
+		$this->_table = "messages" ;
 	}
 	
 
@@ -33,10 +35,13 @@ class messagesManager
 			e.prenom AS prenom,
 			e.email AS email,
 			e.id AS expediteur
-		FROM eld_messages AS m
-		LEFT JOIN eld_eleves AS e
+		FROM :tablename AS m
+		LEFT JOIN :tablename2 AS e
 		ON m.expediteur=e.id
 		WHERE m.id = :id");
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->bindValue( ':tablename2', $this->_db->prefix() . "eleves") ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
@@ -55,7 +60,7 @@ class messagesManager
 		$d = array() ;
 		
 		// Preparation
-		$q = $this->_db->query(	"SELECT
+		$q = $this->_db->prepare("SELECT
 			m.id AS id,
 			m.timestamp AS timestamp,
 			DATE_FORMAT(m.timestamp, '%a, %D %b \'%y, %H:%i') AS date,
@@ -64,11 +69,18 @@ class messagesManager
 			e.nom AS nom,
 			e.prenom AS prenom,
 			e.id AS idEleve
-		FROM eld_messages AS m
-		LEFT JOIN eld_eleves AS e
+		FROM :tablename AS m
+		LEFT JOIN :tablename2 AS e
 		ON m.expediteur=e.id
 		WHERE etat = 'lu'
 		ORDER BY timestamp DESC") or die( print_r( $q->errorInfo() ) ) ;
+
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->bindValue( ':tablename2', $this->_db->prefix() . "eleves") ;
+		
+		// Execution
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
+		
 		// Récupération
 		$d['lus'] = $q->fetchAll(PDO::FETCH_ASSOC) ;
 		
@@ -77,7 +89,7 @@ class messagesManager
 			$d['lus'][$k] = new message($v) ;
 		}
 		
-		$q = $this->_db->query(	"SELECT
+		$q = $this->_db->prepare("SELECT
 			m.id AS id,
 			m.timestamp AS timestamp,
 			DATE_FORMAT(m.timestamp, '%a, %D %b \'%y, %H:%i') AS date,
@@ -86,11 +98,18 @@ class messagesManager
 			e.nom AS nom,
 			e.prenom AS prenom,
 			e.id AS idEleve
-		FROM eld_messages AS m
-		LEFT JOIN eld_eleves AS e
+		FROM :tablename AS m
+		LEFT JOIN :tablename2 AS e
 		ON m.expediteur=e.id
 		WHERE etat = 'nonlu'
 		ORDER BY timestamp") or die( print_r( $q->errorInfo() ) ) ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->bindValue( ':tablename2', $this->_db->prefix() . "eleves") ;
+		
+		// Execution
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
+		
 		// Récupération
 		$d['nonlus'] = $q->fetchAll(PDO::FETCH_ASSOC) ;
 		
@@ -108,7 +127,8 @@ class messagesManager
 		$id = (int) $id ;
 		
 		// Preparation
-		$q = $this->_db->prepare("SELECT id FROM eld_messages WHERE id = :id") ;
+		$q = $this->_db->prepare("SELECT id FROM :tablename WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
 		// Execution
@@ -122,9 +142,9 @@ class messagesManager
 	function writeMessage(message $message)
 	{
 		// Preparation
-		$q = $this->_db->prepare("INSERT INTO eld_messages SET
+		$q = $this->_db->prepare("INSERT INTO :tablename SET
 				objet = :objet, corps = :corps, expediteur = :expediteur, timestamp = NOW(), etat = 'nonlu'") ;
-		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeurs
 		$q->bindValue(':objet', $message->objet());
 		$q->bindValue(':corps', $message->corps());
@@ -138,7 +158,8 @@ class messagesManager
 	function markRead(message $message)
 	{
 		// Preparation
-		$q = $this->_db->prepare("UPDATE eld_messages SET etat = 'lu' WHERE id = :id") ;
+		$q = $this->_db->prepare("UPDATE :tablename SET etat = 'lu' WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		$q->bindValue(':id', $message->id() ) ;
 		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
 		$q->closeCursor() ;
@@ -146,7 +167,8 @@ class messagesManager
 	function markUnread(message $message)
 	{
 		// Preparation
-		$q = $this->_db->prepare("UPDATE eld_messages SET etat = 'nonlu' WHERE id = :id") ;
+		$q = $this->_db->prepare("UPDATE :tablename SET etat = 'nonlu' WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		$q->bindValue(':id', $message->id() ) ;
 		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
 		$q->closeCursor() ;
@@ -157,17 +179,20 @@ class messagesManager
 		switch ($etat)
 		{
 			case 'lu':
-				$q = $this->_db->query("SELECT COUNT(id) AS n FROM eld_messages WHERE etat = 'lu' ") or die( print_r( $q->errorInfo() ) ) ;
+				$q = $this->_db->prepare("SELECT COUNT(id) AS n FROM :tablename WHERE etat = 'lu' ") or die( print_r( $q->errorInfo() ) ) ;
 			break;
 			
 			case 'nonlu':
-				$q = $this->_db->query("SELECT COUNT(id) AS n FROM eld_messages WHERE etat = 'nonlu' ") or die( print_r( $q->errorInfo() ) ) ;
+				$q = $this->_db->prepare("SELECT COUNT(id) AS n FROM :tablename WHERE etat = 'nonlu' ") or die( print_r( $q->errorInfo() ) ) ;
 			break;
 			
 			default:
-				$q = $this->_db->query("SELECT COUNT(id) AS n FROM eld_messages") or die( print_r( $q->errorInfo() ) ) ;
+				$q = $this->_db->prepare("SELECT COUNT(id) AS n FROM :tablename") or die( print_r( $q->errorInfo() ) ) ;
 			break;
 		}
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
+		
 		// Preparation
 		$d = $q->fetch() ;
 		return $d['n'] ;

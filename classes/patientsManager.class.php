@@ -4,11 +4,13 @@ class patientsManager
 {
 	//	internal variables
 	private $_db ;
+	private $_table ;
 	
 	//	Constructor
 	function __construct ($db)
 	{
 		$this->_db = $db;
+		$this->table = "patients" ;
 	}
 	
 
@@ -26,7 +28,7 @@ class patientsManager
 	function add(patient $p)
 	{
 		// Preparation
-		$q = $this->_db->prepare("INSERT INTO eld_patients
+		$q = $this->_db->prepare("INSERT INTO :tablename
 		SET	id = :id,
 			nom = :nom,
 			prenom = :prenom,
@@ -38,6 +40,7 @@ class patientsManager
 			addresse = :addresse,
 			telephone = :telephone,
 			soignant = 0") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $this->genId() );
@@ -63,7 +66,8 @@ class patientsManager
 	function delete(patient $p)
 	{
 		// Preparation
-		$q = $this->_db->prepare("DELETE FROM eld_patients	WHERE	id = :id") ;
+		$q = $this->_db->prepare("DELETE FROM :tablename	WHERE	id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $p->id() );
@@ -78,7 +82,7 @@ class patientsManager
 	function update(patient $p)
 	{
 		// Preparation
-		$q = $this->_db->prepare("UPDATE eld_patients
+		$q = $this->_db->prepare("UPDATE :tablename
 		SET	nom = :nom,
 			prenom = :prenom,
 			cnp = :cnp,
@@ -90,6 +94,7 @@ class patientsManager
 			telephone = :telephone,
 			soignant = :soignant
 		WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $p->id());
@@ -116,7 +121,8 @@ class patientsManager
 	function remove($id)
 	{
 		// Preparation
-		$q = $this->_db->prepare("DELETE FROM eld_patients	WHERE	id = :id") ;
+		$q = $this->_db->prepare("DELETE FROM :tablename	WHERE	id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
@@ -148,12 +154,14 @@ class patientsManager
 					q.annees	AS annees,
 					q.nom_fr_FR	AS patho_fr_FR,
 					q.nom_en_EN	AS patho_en_EN
-			FROM eld_patients AS p
-			LEFT JOIN eld_pathologies AS q
+			FROM :tablename AS p
+			LEFT JOIN :tablenamepathologies AS q
 			ON p.id_pathologie = q.id
 			WHERE	q.id LIKE :pathofilter
 				AND p.id_pathologie <> -1
 			ORDER BY p.id DESC") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->bindValue( ':tablenamepathologies', $this->_db->prefix() . "pathologies") ;
 		
 		$q->bindValue(':pathofilter' , $patho ) ;
 		
@@ -199,12 +207,14 @@ class patientsManager
 					q.annees	AS annees,
 					q.nom_fr_FR	AS patho_fr_FR,
 					q.nom_en_EN	AS patho_en_EN
-			FROM eld_patients AS p
-			LEFT JOIN eld_pathologies AS q
+			FROM :tablename AS p
+			LEFT JOIN :tablenamepathologies AS q
 			ON p.id_pathologie = q.id
 			WHERE p.soignant = :e_id
 				AND p.id_pathologie <> -1
 			ORDER BY p.id DESC") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->bindValue( ':tablenamepathologies', $this->_db->prefix() . "pathologies") ;
 		
 		$q->bindValue(':e_id' , $e_id ) ;
 		
@@ -232,7 +242,8 @@ class patientsManager
 	public function existe($id)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT id FROM eld_patients WHERE id = :id');
+		$q = $this->_db->prepare('SELECT id FROM :tablename WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$id) ;
 		// Execution
@@ -247,7 +258,8 @@ class patientsManager
 	public function isFree(patient $p)
 	{
 		// Préparation
-		$q = $this->_db->prepare('SELECT soignant FROM eld_patients WHERE id = :id');
+		$q = $this->_db->prepare('SELECT soignant FROM :tablename WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeaurs
 		$q->bindValue(	':id'	,	$p->id() ) ;
 		// Execution
@@ -262,7 +274,8 @@ class patientsManager
 	public function reserve(patient $p, eleve $e)
 	{
 		// Préparation
-		$q = $this->_db->prepare('UPDATE eld_patients SET	soignant = :soignant WHERE id = :id');
+		$q = $this->_db->prepare('UPDATE :tablename SET	soignant = :soignant WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeaurs
 		$q->bindValue(	':id'		,	$p->id() ) ;
 		$q->bindValue(	':soignant'	,	$e->id() ) ;
@@ -273,7 +286,8 @@ class patientsManager
 	public function free(patient $p)
 	{
 		// Préparation
-		$q = $this->_db->prepare('UPDATE eld_patients SET	soignant = 0 WHERE id = :id');
+		$q = $this->_db->prepare('UPDATE :tablename SET	soignant = 0 WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeaurs
 		$q->bindValue(	':id'		,	$p->id() ) ;
 		// Execution
@@ -284,7 +298,8 @@ class patientsManager
 	public function heal(patient $p)
 	{
 		// Préparation
-		$q = $this->_db->prepare('UPDATE eld_patients SET	id_pathologie = -1 WHERE id = :id');
+		$q = $this->_db->prepare('UPDATE :tablename SET	id_pathologie = -1 WHERE id = :id');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeaurs
 		$q->bindValue(	':id'		,	$p->id() ) ;
 		// Execution
@@ -311,11 +326,14 @@ class patientsManager
 					q.annees	AS annees,
 					q.nom_fr_FR	AS patho_fr_FR,
 					q.nom_en_EN	AS patho_en_EN
-			FROM eld_patients AS p
-			LEFT JOIN eld_pathologies AS q
+			FROM :tablename AS p
+			LEFT JOIN :tablenamepathologies AS q
 				ON p.id_pathologie = q.id
 			WHERE p.id LIKE :id
 			ORDER BY nom DESC");
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		$q->bindValue( ':tablenamepathologies', $this->_db->prefix() . "pathologies") ;
+		
 		//Attribution des valeurs
 		$q->bindValue(	':id'	, $id	);
 		// Execution
@@ -340,7 +358,8 @@ class patientsManager
 		{ exit 1 }*/
 		
 		// Preparation
-		$q = $this->_db->prepare("SELECT soignant FROM eld_patients	WHERE	id = :id") ;
+		$q = $this->_db->prepare("SELECT soignant FROM :tablename	WHERE	id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
 		
@@ -361,8 +380,9 @@ class patientsManager
 		// Préparation
 		$q = $this->_db->prepare('SELECT
 			COUNT(id) AS n
-			FROM eld_patients
+			FROM :tablename
 			WHERE id_pathologie LIKE :patho AND soignant LIKE :soignant');
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		// Attribution des valeaurs
 		$q->bindValue(	':patho'	,	$patho) ;
 		$q->bindValue(	':soignant'	,	$soignant) ;

@@ -4,11 +4,13 @@ class pathologiesManager
 {
 	//	internal variables
 	private $_db ;
+	private $_table ;
 	
 	//	Constructor
 	function __construct ($db)
 	{
 		$this->_db = $db;
+		$this->_table = "pathologies";
 	}
 	
 
@@ -18,8 +20,10 @@ class pathologiesManager
 	function add(pathologie $patho)
 	{
 		// Preparation
-		$q = $this->_db->prepare("INSERT INTO eld_pathologies
-			SET		nom_fr_FR = :nom_fr_FR, nom_en_EN = :nom_en_EN, annees = :annees, details_fr_FR = :details_fr_FR, details_en_EN = :details_en_EN") ;
+		$q = $this->_db->prepare("INSERT INTO :tablename
+			SET nom_fr_FR = :nom_fr_FR, nom_en_EN = :nom_en_EN, annees = :annees, details_fr_FR = :details_fr_FR, details_en_EN = :details_en_EN") ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':nom_fr_FR', $patho->nom('fr_FR'));
@@ -39,9 +43,11 @@ class pathologiesManager
 	function update(pathologie $patho)
 	{
 		// Preparation
-		$q = $this->_db->prepare("UPDATE eld_pathologies
-			SET		nom_fr_FR = :nom_fr_FR, nom_en_EN = :nom_en_EN, annees = :annees, details_fr_FR = :details_fr_FR, details_en_EN = :details_fr_FR
+		$q = $this->_db->prepare("UPDATE :tablename
+			SET nom_fr_FR = :nom_fr_FR, nom_en_EN = :nom_en_EN, annees = :annees, details_fr_FR = :details_fr_FR, details_en_EN = :details_fr_FR
 			WHERE	id = :id") ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':nom_fr_FR', $patho->nom('fr_FR'));
@@ -62,7 +68,9 @@ class pathologiesManager
 	function remove($id)
 	{
 		// Preparation
-		$q = $this->_db->prepare("DELETE FROM eld_pathologies	WHERE	id = :id") ;
+		$q = $this->_db->prepare("DELETE FROM :tablename WHERE	id = :id") ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
@@ -77,7 +85,9 @@ class pathologiesManager
 	function existe($id)
 	{
 		// Preparation
-		$q = $this->_db->prepare("SELECT * FROM eld_pathologies	WHERE	id = :id") ;
+		$q = $this->_db->prepare("SELECT * FROM :tablename	WHERE	id = :id") ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
@@ -101,7 +111,9 @@ class pathologiesManager
 	function get($id)
 	{
 		// Preparation
-		$q = $this->_db->prepare("SELECT * FROM eld_pathologies	WHERE	id = :id") ;
+		$q = $this->_db->prepare("SELECT * FROM :tablename	WHERE	id = :id") ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':id', $id);
@@ -119,10 +131,14 @@ class pathologiesManager
 	function liste()
 	{
 		// Preparation
-		$q = $this->_db->query("
+		$q = $this->_db->prepare("
 			SELECT *
-			FROM eld_pathologies
+			FROM :tablename
 			ORDER BY nom_fr_FR ASC")  or die( print_r( $q->errorInfo() ) ) ;
+		
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
+		$q->execute() or die( print_r( $q->errorInfo() ) ) ;
 				
 		// Récupération
 		$d = $q->fetchAll(PDO::FETCH_ASSOC) ;

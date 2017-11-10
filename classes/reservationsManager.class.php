@@ -4,11 +4,13 @@ class reservationsManager
 {
 	//	internal variables
 	private $_db ;
+	private $_table ;
 	
 	//	Constructor
 	function __construct ($db)
 	{
 		$this->_db = $db;
+		$this->table = "reservation" ;
 	}
 	
 
@@ -19,13 +21,14 @@ class reservationsManager
 	{
 		// Preparation
 		$q = $this->_db->prepare("
-			INSERT INTO eld_reservation SET
+			INSERT INTO :tablename SET
 				id = '',
 				idEleve = :idEleve,
 				idPatient = :idPatient,
 				idPatho = :idPatho,
 				enregistrement = NOW(),
 				confirme = 0") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		// Attribution des valeurs
 		$q->bindValue(':idEleve', $r->idEleve());
@@ -43,8 +46,9 @@ class reservationsManager
 	public function free(reservation $r)
 	{
 		$q = $this->_db->prepare("
-			DELETE FROM eld_reservation
+			DELETE FROM :tablename
 			WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		$q->bindValue(':id', $r->id() );
 		
@@ -55,9 +59,10 @@ class reservationsManager
 	public function confirm(reservation $r)
 	{
 		$q = $this->_db->prepare("
-			UPDATE eld_reservation SET
+			UPDATE :tablename SET
 				confirme = 1
 			WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		$q->bindValue(':id', $r->id() );
 		
@@ -68,9 +73,10 @@ class reservationsManager
 	public function unconfirm(reservation $r)
 	{
 		$q = $this->_db->prepare("
-			UPDATE eld_reservation SET
+			UPDATE :tablename SET
 				confirme = 0
 			WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		$q->bindValue(':id', $r->id() );
 		
@@ -81,13 +87,14 @@ class reservationsManager
 	public function update(reservation $r)
 	{
 		$q = $this->_db->prepare("
-			UPDATE eld_reservation SET
+			UPDATE :tablename SET
 				id = '',
 				idEleve = :idEleve,
 				idPatient = :idPatient,
 				idPatho = :idPatho,
 				enregistrement = NOW()
 			WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		$q->bindValue(':id', $r->id() );
 		$q->bindValue(':idEleve', $r->idEleve());
@@ -101,9 +108,10 @@ class reservationsManager
 	public function postpone(reservation $r)
 	{
 		$q = $this->_db->prepare("
-			UPDATE eld_reservation SET
+			UPDATE :tablename SET
 				enregistrement = NOW()
 			WHERE id = :id") ;
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
 		
 		$q->bindValue(':id', $r->id() );
 		
@@ -115,9 +123,10 @@ class reservationsManager
 	{
 		$q = $this->_db->prepare("
 			SELECT id
-			FROM eld_reservation
+			FROM :tablename
 			WHERE idPatient = :idPatient") or die( print_r( $this->_db->errorInfo() ) ) ;
-	
+		$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+		
 		// Attribution des valeurs
 		$q->bindValue(':idEleve', $e );
 	
@@ -137,10 +146,11 @@ class reservationsManager
 		{
 			$q = $this->_db->prepare("
 				SELECT id
-				FROM eld_reservation
+				FROM :tablename
 				WHERE
 					idEleve = :idEleve AND idPatient = :idPatient") or die( print_r( $this->_db->errorInfo() ) ) ;
-		
+			$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+			
 			// Attribution des valeurs
 			$q->bindValue(':idEleve', $e );
 			$q->bindValue(':idPatient', $p );
@@ -180,14 +190,17 @@ class reservationsManager
 					CONCAT( p.nom, ' ', p.prenom) AS nomPatient,
 					e.id AS idEleve,
 					CONCAT( e.nom, ' ', e.prenom) AS nomEleve
-				FROM eld_reservation AS r
-				LEFT JOIN eld_patients AS p
+				FROM :tablename AS r
+				LEFT JOIN :tablenamepatients AS p
 					ON r.idPatient = p.id
-				LEFT JOIN eleves AS e
+				LEFT JOIN :tablenameeleves AS e
 					ON r.idEleve = e.id
 				WHERE
 					e.id = :idEleve AND p.id = :idPatient") or die( print_r( $this->_db->errorInfo() ) ) ;
-		
+			$q->bindValue( ':tablename', $this->_db->prefix() . $this->_table) ;
+			$q->bindValue( ':tablenamepatients', $this->_db->prefix() . "patients") ;
+			$q->bindValue( ':tablenameeleves', $this->_db->prefix() . "eleves") ;
+			
 			// Attribution des valeurs
 			$q->bindValue(':idEleve', $id_e );
 			$q->bindValue(':idPatient', $id_p );

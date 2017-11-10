@@ -2,18 +2,6 @@
 //date_default_timezone_set('Europe/Bucharest') ;
 
 //================================-
-// Connexion à la base de données
-//================================-
-try {	$bdd = new PDO(
-	"mysql:host=$DB_HOST;dbname=$DB_NAME",
-	"$DB_USER",
-	"$DB_PASSWORD"
-	);	}
-catch(Exception $e)	{
-	echo "Database Error : ".$e->getMessage() ;	}
-$GLOBALS['bdd'] = $bdd ;
-
-//================================-
 // Autoload des classes
 //================================-
 function chargerClasse($classe)
@@ -22,12 +10,28 @@ function chargerClasse($classe)
 // On enregistre la fonction en autoload pour qu'elle soit appellée à chaque classe non déclarée.
 spl_autoload_register('chargerClasse'); 
 
+//================================-
+// Connexion à la base de données
+//================================-
+try {	$bdd = new MyPDO(
+	"mysql:host=$DB_HOST;dbname=$DB_NAME",
+	"$DB_USER",
+	"$DB_PASSWORD"
+	);	}
+catch(Exception $e)	{
+	echo "Database Error : ".$e->getMessage() ;	}
+
+$bdd->setPrefix( $DB_PREFIX );
+
+$GLOBALS['bdd'] = $bdd ;
+
+
 
 //================================-
 // Création de la session
 //================================-
 session_start() ;
-
+echo "A<br/>";
 //================================-
 // Chargement des classes
 //================================-
