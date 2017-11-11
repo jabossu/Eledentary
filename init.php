@@ -1,7 +1,7 @@
 <?php
 //date_default_timezone_set('Europe/Bucharest') ;
 
-define( VERSION , "1.3.5-beta");
+define( "VERSION" , "1.3.5-beta");
 
 //================================-
 // Connexion à la base de données
