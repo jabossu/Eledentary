@@ -19,27 +19,27 @@ if ($loggedin == true) { # if the user just logged in, this will be true
 // Première ligne ===================================================================
 classe('o', 'row');
 	//----------------------------------------------------------------------------
-	classe('o', 'col-md-5 well well-tile');
+	classe('o', 'col-md-6 well');
 		classe('o', 'col-md-2');
 			glyph("glyphicon-user", "font-size: 6em");
 		classe('c');
 		
-		classe('o', 'col-md-8');
+		classe('o', 'col-md-9 col-md-offset-1');
 			display("connected_as", "b");
 			echo '<ul class="list-group">';
-			echo '<li class="list-group-item"><b><em>' . $_SESSION['profile']->prenom() . ' ' . $_SESSION['profile']->nom() . '</em></b></li>';
+			echo '<li class="list-group-item"><b><em>' . $_SESSION['profile']->prenom() . ' ' . $_SESSION['profile']->nom() . '</em></b><span class="badge"><b>' . $_SESSION['profile']->matricule()  . '</b></span>' . '</li>';
 			echo '<li class="list-group-item"><b>' . translate('annee') . ' :</b> ' . '<span class="badge"><b>' . $_SESSION['profile']->annee()  . '</b></span>' . '</li>';
 			echo '<li class="list-group-item"><b>' . translate('email') . ' :</b> <span class="badge"><b>' . $_SESSION['profile']->email() . '</b></span></li>';
 			echo '<ul>';
 		classe('c');
 	classe('c');
 	//----------------------------------------------------------------------------
-	classe('o', 'col-md-5  well well-tile');
+	classe('o', 'col-md-6  well');
 		classe('o', 'col-md-2');
 			glyph("glyphicon-flag", "font-size: 6em");
 		classe('c');
 		
-		classe('o', 'col-md-8 col-md-offset-1');
+		classe('o', 'col-md-9 col-md-offset-1');
 			display("my_stats", "b");
 			echo '<ul class="list-group">';
 			echo '<li class="list-group-item">' . translate('nombre_soins') . ' : <span class="badge"><b>' . $_SESSION['profile']->soins() . '</b></span></li>';
@@ -54,7 +54,7 @@ classe('c');
 // Deuxième ligne ===================================================================
 classe('o', 'row');
 	//----------------------------------------------------------------------------
-	classe('o', 'col-md-2 well well-tile');
+	classe('o', 'col-md-3 well');
 		
 		echo '<ul class="list-group">';
 		echo '<li class="list-group-item">' . 'Nombre d\'utilisateurs' . '<span class="badge"><b>' . $n_e . '</b></span>' .'</li>';
@@ -64,7 +64,7 @@ classe('o', 'row');
 		
 	classe('c');
 	//----------------------------------------------------------------------------
-	classe('o', 'col-md-8 well well-tile');
+	classe('o', 'col-md-9 well');
 		
 		classe('o', 'col-md-10 col-md-push-1');
 ?>		<div class="progress">
