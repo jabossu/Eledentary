@@ -1,3 +1,6 @@
+Ce projet n'est plus maintenu : J'ai pris cosncience des limittes de mes connaissances en code et des limittes intrinseques du PHP pur quant à la sécurité et la fiabilité du projet.
+Si il vous amuse, servez vous en comme vous l'entendez.
+***
 # Eledentary
 > Un gestionnaire de patient pour de larges communautés médicales
 
